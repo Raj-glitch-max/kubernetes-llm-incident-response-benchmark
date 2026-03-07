@@ -27,5 +27,12 @@ override.tf.json
 *tfplan*
 
 # Ignore CLI configuration files
+# Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Python and secrets
+.env
+venv/
+__pycache__/
+*.pyc

@@ -11,20 +11,8 @@ from ai.incident_schema import IncidentInput, LLMOutput
 
 load_dotenv()
 
-SYSTEM_PROMPT = """
-You are an expert Kubernetes Site Reliability Engineer evaluating a production incident.
-Your goal is to parse the given incident context, logs, events, and describe outputs to determine the root cause.
-You must ONLY reference the provided evidence. Do NOT use external knowledge.
-Your response MUST be valid JSON conforming to the following structure:
-{
-    "root_cause_description": "Detailed explanation of the failure mode",
-    "category_label": "One of: PodCrashLooping, NodeNotReady, NetworkFailure, ResourceExhaustion",
-    "confidence_score": 0.0 to 1.0,
-    "evidence_cited": ["Exact line from pod logs or events that proves the root cause"],
-    "suggested_fix": "A concise explanation of how to fix this",
-    "kubectl_commands": ["kubectl describe pod my-pod", "kubectl scale deployment --replicas=3"]
-}
-"""
+with open("ai/prompts/system_prompt.txt", "r") as f:
+    SYSTEM_PROMPT = f.read()
 
 def call_gpt4_turbo(incident: IncidentInput) -> LLMOutput:
     client = openai.Client(api_key=os.getenv("OPENAI_API_KEY"))

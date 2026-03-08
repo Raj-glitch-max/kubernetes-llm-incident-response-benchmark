@@ -1,0 +1,16 @@
+Name:         target-app-5b6d7f9d8c-2kxqw
+Namespace:    default
+Status:       Running
+IP:           10.0.1.15
+Containers:
+  target-app:
+    Image:         nginx:1.25
+    State:         Waiting
+      Reason:      CrashLoopBackOff
+    Last State:    Terminated
+      Reason:      Error
+      Exit Code:   2
+      Started:     Sun, 08 Mar 2026 10:00:00 +0000
+      Finished:    Sun, 08 Mar 2026 10:05:13 +0000
+    Ready:         False
+    Restart Count: 5

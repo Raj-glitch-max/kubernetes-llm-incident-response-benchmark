@@ -1,6 +1,6 @@
 # Project Context — Kubernetes LLM Incident Benchmark
 > Single source of truth. Paste this into any AI assistant before starting work.
-> Last updated: March 2026 | Owners: Raj Patil & Soham
+> Last updated: March 2026 | Owners: Raj Patil & Soham & Pranav
 
 ---
 
@@ -19,9 +19,15 @@
 - Kubernetes and cloud are newer territory — needs brief infra context when relevant
 - Style: Works well with concrete checklists, short feedback loops, runnable examples
 
+### Pranav
+- Role: **Infrastructure Reliability & Security Engineer** — owns Ansible, security scanning, cost monitoring
+- Stack: Ansible, checkov, tfsec, trivy, AWS Cost Explorer, Helm
+- Style: Needs advanced technical patterns; skip basics. Focus on production-grade security and configuration management.
+
 ### How any AI assistant should treat us
 - Raj: skip basics, go straight to trade-offs, design decisions, advanced patterns
 - Soham: short infra explanations + working code examples, not long theory
+- Pranav: advanced Ansible patterns, tfsec/trivy/checkov configurations, and production-grade security practices. Skip basics.
 - Both: actionable steps first, theory after. Working rough code > perfect diagrams.
 
 ---
@@ -52,19 +58,18 @@ Claude 3 Sonnet) can diagnose real Kubernetes failures from logs, events, and me
 
 | Area | Owner |
 |---|---|
-| Terraform modules (VPC, EKS, IAM) | Raj |
-| Kubernetes manifests + Helm | Raj |
-| Chaos scripts (`k8s/chaos/`) | Raj |
-| Prometheus alert rules + Grafana dashboards | Raj |
-| ArgoCD setup + GitOps sync | Raj |
-| Runbooks (`docs/runbooks/`) | Raj |
-| LLM RCA engine (`ai/rca_engine.py`) | Soham |
-| Prompt templates (`ai/prompts/`) | Soham |
-| Incident schema (`ai/incident_schema.py`) | Soham |
-| Evaluation framework (`eval/evaluate.py`) | Soham |
+| Terraform (EKS infrastructure) | Raj |
+| Chaos Engineering scripts | Raj |
+| LLM Pipeline (RCA Engine) | Soham |
+| Evaluation Framework / Schema | Soham |
+| GitLab/GitHub CI/CD Pipelines | Raj & Soham |
+| Ansible playbooks (`ansible/`) | Pranav |
+| Security scanning (`security/`) | Pranav |
+| Cost monitoring (`data/cost_per_experiment.csv`)| Pranav |
+| Helm chart packaging (`charts/`) | Pranav |
 | GitHub Actions CI (`.github/workflows/`) | Soham |
 | AWS cost monitoring layer | Soham |
-| README, docs, ADRs, posts | Both |
+| README, docs, ADRs, posts | All |
 
 ---
 
@@ -76,9 +81,10 @@ Claude 3 Sonnet) can diagnose real Kubernetes failures from logs, events, and me
 | ADR-002 | IaC: Terraform |
 | ADR-003 | LLMs: GPT-4 Turbo (primary) + Claude 3 Sonnet (comparison) |
 | ADR-004 | GitOps: ArgoCD |
-| ADR-005 | Chaos: Custom Bash/Python scripts (not LitmusChaos) |
-| ADR-006 | Evaluation: Custom 4-metric framework (not ROUGE or human-only) |
-| ADR-007 | Chaos script ownership: Raj writes + runs chaos. Soham writes eval only. |
+| ADR-005 | Custom Python/Bash chaos scripts (vs Litmus) |
+| ADR-006 | Custom 4-metric evaluation framework         |
+| ADR-007 | Exclude multi-cluster federation for MVP     |
+| ADR-008 | Third team member — Pranav owns Ansible + Security + Cost monitoring |
 
 Full ADR details: `docs/adr/`
 
@@ -98,6 +104,8 @@ Full ADR details: `docs/adr/`
 | LLM | OpenAI GPT-4 Turbo + Anthropic Claude 3 Sonnet via Python SDK |
 | Evaluation | Custom Python framework in `eval/` |
 | CI | GitHub Actions — lint + test + eval on every push |
+| Configuration Management | Ansible (`ansible/` folder) |
+| Security Scanning | tfsec + trivy + checkov (`security/` folder) |
 
 ---
 
@@ -141,6 +149,8 @@ kubernetes-llm-incident-response-benchmark/
 │ ├── vpc/
 │ ├── eks/
 │ └── monitoring/
+├── ansible/ ← Playbooks and Roles (Pranav owns)
+├── security/ ← Scanners (Pranav owns)
 ├── k8s/
 │ ├── apps/ ← target app, prometheus, grafana manifests
 │ │ └── prometheus/
@@ -161,7 +171,7 @@ kubernetes-llm-incident-response-benchmark/
 │ ├── context.md ← this file
 │ ├── glossary.md
 │ ├── benchmark.md
-│ ├── adr/ ← ADR-001 through ADR-007+
+│ ├── adr/ ← ADR-001 through ADR-008+
 │ └── runbooks/ ← one file per chaos type
 ├── notebooks/ ← Soham's Jupyter analysis
 ├── .github/
@@ -254,8 +264,8 @@ Each row in `data/incidents.csv` contains:
 **Phase 2 — Scale** (5 milestones): Signal Injection → Advanced Chaos → Model Comparison → 50 Experiments → Full Benchmark Doc
 **Phase 3 — Convert** (4 milestones): Polish → Interview Prep → Applications → Close the Loop
 
-Phases can compress — Raj and Soham can complete 2-3 milestones in one day if gates are met.
-**Fast Forward rule:** Whenever both people finish a milestone gate early, immediately run one
+Phases can compress — Raj, Soham, and Pranav can complete 2-3 milestones in one day if gates are met.
+**Fast Forward rule:** Whenever members finish a milestone gate early, immediately run one
 end-to-end chaos → capture → LLM → score → CSV loop together.
 
 ---
@@ -264,6 +274,7 @@ end-to-end chaos → capture → LLM → score → CSV loop together.
 
 - Raj knows Kubernetes, AWS, CI/CD at an advanced level. Skip basics with him.
 - Soham needs short infra explanations but handles code and AI details fast.
+- Pranav knows Ansible and security tooling at a strong level. Give him advanced Ansible patterns, tfsec/trivy/checkov configurations, and production-grade security practices. Skip basics with him.
 - Always give working code or config first, explanation second.
 - When designing anything, ask: does this produce a row in incidents.csv? If not, is it strictly necessary?
 - Reality > theory. Rough but working > perfect but imaginary.

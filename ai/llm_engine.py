@@ -72,14 +72,28 @@ def call_claude3_sonnet(incident: IncidentInput) -> LLMOutput:
     data = json.loads(raw_text)
     return LLMOutput(**data)
 
-def call_nvidia_qwen3(incident: IncidentInput) -> LLMOutput:
+def call_nvidia_glm47(incident: IncidentInput) -> LLMOutput:
     """
-    Calls the NVIDIA hosted qwen3 model via the OpenAI-compatible API.
+    Calls z-ai/glm4.7 via NVIDIA NIM with streaming + thinking enabled.
+    clear_thinking=True keeps reasoning internal (faster, no stream bloat).
     Uses NVIDIA_API_KEY from .env.
     """
+    import sys
+    import httpx
+    from dotenv import load_dotenv as _load_key
+    _env_path = os.path.join(os.getcwd(), '.env')
+    _load_key(_env_path, override=True)  # always load from project root
+
+    transport = httpx.HTTPTransport(retries=2)
+    http_client = httpx.Client(transport=transport, timeout=httpx.Timeout(120.0))
+
+    _key = os.getenv("NVIDIA_API_KEY")
+
     client = openai.Client(
-        api_key=os.getenv("NVIDIA_API_KEY"),
-        base_url=NVIDIA_BASE_URL
+        api_key=_key,
+        base_url=NVIDIA_BASE_URL,
+        http_client=http_client,
+        max_retries=2
     )
 
     user_content = json.dumps({
@@ -90,32 +104,56 @@ def call_nvidia_qwen3(incident: IncidentInput) -> LLMOutput:
         "chaos_metadata": incident.chaos_metadata
     })
 
-    response = client.chat.completions.create(
-        model="qwen/qwen3-235b-a22b",
+    stream = client.chat.completions.create(
+        model="z-ai/glm4.7",
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": user_content}
         ],
-        temperature=0.0,
-        max_tokens=4096,
-        extra_body={"chat_template_kwargs": {"enable_thinking": True, "clear_thinking": True}}
+        temperature=0.6,
+        top_p=0.9,
+        max_tokens=2048,
+        # clear_thinking=True: model still thinks but strips <think>...</think> from output
+        # This prevents very large chunked payloads that cause the connection to drop.
+        extra_body={"chat_template_kwargs": {"enable_thinking": True, "clear_thinking": True}},
+        stream=True
     )
 
-    raw_json = response.choices[0].message.content.strip()
-    # Strip markdown code fences if present
-    if raw_json.startswith("```json"):
-        raw_json = raw_json.split("```json")[-1].split("```")[0].strip()
-    elif raw_json.startswith("```"):
-        raw_json = raw_json.split("```")[1].split("```")[0].strip()
+    content_buf = []
 
-    data = json.loads(raw_json)
+    for chunk in stream:
+        if not getattr(chunk, "choices", None) or len(chunk.choices) == 0:
+            continue
+        delta = getattr(chunk.choices[0], "delta", None)
+        if delta is None:
+            continue
+        if getattr(delta, "content", None) is not None:
+            content_buf.append(delta.content)
+
+    raw = "".join(content_buf).strip()
+
+    # Strip markdown code fences if model wraps JSON in them
+    if raw.startswith("```json"):
+        raw = raw.split("```json")[-1].split("```")[0].strip()
+    elif raw.startswith("```"):
+        raw = raw.split("```")[1].strip()
+
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        import re
+        match = re.search(r'\{.*\}', raw, re.DOTALL)
+        if not match:
+            raise ValueError(f"GLM4.7 returned non-JSON output: {raw[:300]}")
+        data = json.loads(match.group())
+
     return LLMOutput(**data)
 
-def analyze_incident(incident: IncidentInput, model_choice: str = "nvidia-qwen3") -> tuple[LLMOutput, float]:
+def analyze_incident(incident: IncidentInput, model_choice: str = "nvidia-glm47") -> tuple[LLMOutput, float]:
     """
     Analyzes an incident using the specified LLM.
     Returns the parsed LLMOutput and the latency in seconds.
-    Supported models: 'gpt-4-turbo', 'claude-3-sonnet', 'nvidia-qwen3'
+    Supported models: 'gpt-4-turbo', 'claude-3-sonnet', 'nvidia-glm47'
     """
     start_time = time.time()
     
@@ -123,10 +161,10 @@ def analyze_incident(incident: IncidentInput, model_choice: str = "nvidia-qwen3"
         result = call_gpt4_turbo(incident)
     elif model_choice == "claude-3-sonnet":
         result = call_claude3_sonnet(incident)
-    elif model_choice == "nvidia-qwen3":
-        result = call_nvidia_qwen3(incident)
+    elif model_choice in ("nvidia-glm47", "nvidia-qwen3"):  # backward compat alias
+        result = call_nvidia_glm47(incident)
     else:
-        raise ValueError(f"Unknown model: {model_choice}. Valid choices: gpt-4-turbo, claude-3-sonnet, nvidia-qwen3")
+        raise ValueError(f"Unknown model: {model_choice}. Valid choices: gpt-4-turbo, claude-3-sonnet, nvidia-glm47")
         
     end_time = time.time()
     latency = end_time - start_time
@@ -139,13 +177,17 @@ if __name__ == "__main__":
     from pathlib import Path
     import sys
     
+    # Force re-read of .env in case it was written after the module was first imported
+    from dotenv import load_dotenv as _load
+    _load(override=True)
+    
     # Import evaluators
     from eval.evaluate import score_rca_accuracy, score_hallucination, score_latency, score_remediation
 
     parser = argparse.ArgumentParser(description="Run LLM engine against an incident")
     parser.add_argument("--incident", required=True, help="Path to incident raw logs directory (e.g. data/raw_logs/INC-000)")
-    parser.add_argument("--model", default="nvidia-qwen3", choices=["gpt-4-turbo", "claude-3-sonnet", "nvidia-qwen3"],
-                        help="LLM model to use (default: nvidia-qwen3)")
+    parser.add_argument("--model", default="nvidia-glm47", choices=["gpt-4-turbo", "claude-3-sonnet", "nvidia-glm47"],
+                        help="LLM model to use (default: nvidia-glm47)")
     args = parser.parse_args()
 
     inc_dir = Path(args.incident)
@@ -178,7 +220,7 @@ if __name__ == "__main__":
     has_key = (
         (selected_model == "gpt-4-turbo" and os.getenv("OPENAI_API_KEY")) or
         (selected_model == "claude-3-sonnet" and os.getenv("ANTHROPIC_API_KEY")) or
-        (selected_model == "nvidia-qwen3" and os.getenv("NVIDIA_API_KEY"))
+        (selected_model in ("nvidia-glm47", "nvidia-qwen3") and os.getenv("NVIDIA_API_KEY"))
     )
 
     try:
@@ -194,7 +236,7 @@ if __name__ == "__main__":
             )
             latency = 2.45
         else:
-            llm_output, latency = analyze_incident(incident, model_choice="gpt-4-turbo")
+            llm_output, latency = analyze_incident(incident, model_choice=selected_model)
         
         # Scoring
         rca_score = 1 if score_rca_accuracy(llm_output.category_label, chaos_metadata.get("ground_truth_category", "")) else 0

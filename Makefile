@@ -2,7 +2,7 @@
 
 INCIDENT ?= INC-001
 SCENARIO ?= pod_kill
-MODEL    ?= nvidia-qwen3
+MODEL    ?= nvidia-glm47
 
 help:
 	@echo "============================================"
@@ -40,7 +40,7 @@ eval:
 	@echo "Running LLM evaluation for $(INCIDENT) using $(MODEL)..."
 	@export PYTHONPATH=$$(pwd) && \
 	  source venv/bin/activate && \
-	  python3 ai/llm_engine.py --incident data/raw_logs/$(INCIDENT) --model $(MODEL)
+	  python3 -m ai.llm_engine --incident data/raw_logs/$(INCIDENT) --model $(MODEL)
 	@echo "--- Tail of incidents.csv ---"
 	@tail -1 data/incidents.csv
 

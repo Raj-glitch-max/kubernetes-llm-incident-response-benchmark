@@ -1,0 +1,10 @@
+# Grafana Helm Chart Custom Values
+# This file overrides the default settings when we install Grafana via Helm.
+
+# Set the default admin password (we will use a secret manager in prod, but hardcode for now)
+adminPassword: "admin"
+
+# We want our dashboards to survive pod restarts, so we ask Kubernetes for a 5Gi Persistent Volume
+persistence:
+  enabled: true
+  size: 5Gi

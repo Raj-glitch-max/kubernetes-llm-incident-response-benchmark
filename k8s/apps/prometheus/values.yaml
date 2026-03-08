@@ -1,0 +1,25 @@
+# # Task for Prometheus: Create k8s/apps/prometheus/values.yaml. You must configure the server:
+# It needs retention set to 15d
+# It needs a persistent volume claim (persistentVolume: enabled: true, size: 8Gi).
+# Under serverFiles.alerting_rules.yml.groups.name: chaos-alerts, we need to write our PodCrashLooping alert.
+# The expression (PromQL) should be: rate(kube_pod_container_status_restarts_total{namespace="default"}[5m]) > 0
+# Labels: severity: critical
+# Annotations: summary: "Pod {{ $labels.pod }} is crashlooping"
+
+# This is how the comments map to a YAML file:
+server:
+  retention: 15d
+  persistentVolume:
+    enabled: true
+    size: 8Gi
+serverFiles:
+  alerting_rules.yml:
+    groups:
+      - name: chaos-alerts
+        rules:
+          - alert: PodCrashLooping
+            expr: rate(kube_pod_container_status_restarts_total{namespace="default"}[5m]) > 0
+            labels:
+              severity: critical
+            annotations:
+              summary: "Pod {{ $labels.pod }} is crashlooping"

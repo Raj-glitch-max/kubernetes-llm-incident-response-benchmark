@@ -1,8 +1,0 @@
----
-- name: Configure EKS Cluster (Post-Terraform)
-  hosts: localhost
-  gather_facts: false
-  roles:
-    - namespaces
-    - rbac
-    - resource-quotas

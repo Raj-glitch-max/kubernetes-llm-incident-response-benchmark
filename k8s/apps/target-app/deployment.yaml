@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: target-app
+  namespace: default
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: target-app
+    template:
+      metadata:
+        labels:
+          app: target-app
+      spec:
+        containers:
+          - name: target-app
+            image: nginx:1.25
+            ports:
+              - containerPort: 80
+            resources:
+              requests:
+                memory: "64Mi"
+                cpu: "50m"
+              limits:
+                memory: "128Mi"
+                cpu: "100m"

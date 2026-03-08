@@ -24,6 +24,21 @@ Rule in this project: Every new chaos scenario must have a matching alert rule b
 A component that receives alerts from Prometheus and routes them — to Slack, email, webhook, or your pipeline.
 In this project: Alertmanager routes alerts into the incident capture pipeline so the LLM receives them as input.
 
+### Ansible
+An open-source IT configuration management and automation platform.
+In this project: Used to configure namespaces, RBAC, and compute quotas on the cluster post-Terraform.
+Owner: Pranav.
+
+### Ansible Playbook
+A YAML file containing a series of tasks to be executed sequentially on specified hosts.
+In this project: Found in `ansible/playbooks/`, describing the high-level configuration goals for the cluster.
+Owner: Pranav.
+
+### Ansible Role
+A mechanism to break a playbook into multiple files to simplify writing complex playbooks, making them easier to reuse.
+In this project: Found in `ansible/roles/`, managing individual domains like namespaces or RBAC.
+Owner: Pranav.
+
 ### ArgoCD
 A GitOps tool that watches your GitHub repo and automatically applies Kubernetes manifests to your cluster.
 In plain English: Git is the source of truth. ArgoCD makes the cluster match Git.
@@ -77,11 +92,21 @@ A reusable, named failure type in your scenario library.
 Examples: `pod_kill_random`, `network_latency_2000ms`, `node_drain`, `cpu_stress_80pct`.
 Location: `k8s/chaos/` scripts + `docs/runbooks/`.
 
+### checkov
+A static code analysis tool for Infrastructure as Code and Kubernetes manifests.
+In this project: Scans the `k8s/` manifests for misconfigurations and security issues.
+Owner: Pranav.
+
 ### CI/CD (Continuous Integration / Continuous Deployment)
 - **CI**: Every time code is pushed, automated tests and checks run immediately.
 - **CD**: Passing code is automatically deployed to the target environment.
 In this project: GitHub Actions is the CI. ArgoCD is the CD.
 Soham owns the GitHub Actions CI pipeline.
+
+### Cost Explorer (AWS)
+A tool that enables you to view and analyze your AWS costs and usage explicitly.
+In this project: Pranav tracks the EKS and AWS utilization against API token costs for the benchmarking metrics.
+Owner: Pranav.
 
 ### CrashLoopBackOff
 A Kubernetes pod state meaning: "the container keeps starting, crashing, and restarting in a loop."
@@ -188,6 +213,11 @@ In this project:
 - LLM says "alert PodOOMKilled fired" but that alert is not in the input.
 - LLM invents a metric value that was never captured.
 Scored by: `hallucination_detected` (Y/N) and `hallucination_detail` fields in `incidents.csv`.
+
+### Helm Chart
+A package format for Kubernetes that bundles multiple templated YAML manifests together.
+In this project: Used to install standard tools (Prometheus, Grafana). Custom application configurations might be packaged later.
+Owner: Pranav.
 
 ### HPA (Horizontal Pod Autoscaler)
 A Kubernetes object that automatically scales the number of pod replicas based on CPU/memory usage.
@@ -333,6 +363,11 @@ Key rule: The prompt must instruct the LLM to only use provided evidence — no 
 
 ## R
 
+### RBAC (Role-Based Access Control)
+Method of regulating access to computer or network resources based on the roles of individual users within an enterprise.
+In this project: Defines what users and automated tools can do within the EKS cluster.
+Owner: Pranav.
+
 ### RCA (Root Cause Analysis)
 Finding the real underlying reason an incident happened, not just the surface symptom.
 Symptom: pod is CrashLoopBackOff.
@@ -344,6 +379,11 @@ In this project: the LLM performs RCA. The evaluation checks if it found the cor
 The action taken to fix an incident.
 In this project: the LLM suggests fix steps and kubectl commands.
 Scored by `remediation_useful` (Y / N / Partial) in `incidents.csv`.
+
+### Resource Quota
+A constraint that limits aggregate resource consumption per Kubernetes namespace.
+In this project: Limits blast radius of experiments and applications.
+Owner: Pranav.
 
 ### Runbook
 A step-by-step guide for handling a specific incident type.
@@ -373,6 +413,16 @@ Commands:
 - `terraform destroy` — DELETE everything (never run without explicit confirmation)
 Structure in this project: `terraform/modules/vpc/`, `terraform/modules/eks/`, `terraform/modules/monitoring/`.
 
+### tfsec
+A static analysis security scanner for Terraform code.
+In this project: Runs across the `terraform/` directory checking for IAM policy permissiveness, open ports, and encryption omissions.
+Owner: Pranav.
+
+### trivy
+A comprehensive and versatile vulnerability scanner for containers and artifacts.
+In this project: Scans docker images referenced in the `k8s/apps/` manifesting before deployment.
+Owner: Pranav.
+
 ---
 
 ## V
@@ -400,4 +450,4 @@ Workflows set up for this project:
 1. Save as `docs/glossary.md`
 2. Any time a new term appears in any project doc → add it here immediately
 3. Format: term as `###`, 2–4 line plain explanation, project-specific context below
-4. Who updates it: both Raj and Soham — in the same PR as the doc that introduced the term
+4. Who updates it: all members — in the same PR as the doc that introduced the term

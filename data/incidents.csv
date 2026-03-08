@@ -1,2 +1,3 @@
 incident_id,model,latency_sec,rca_accuracy,hallucination_penalty,remediation_safe,root_cause_description
 INC-000,gpt-4-turbo,2.45,1,0.0,1,"The pod target-app-5b6d7f9d8c-2kxqw has repeatedly failed, causing a CrashLoopBackOff due to a runtime panic invalid memory address."
+INC-000,gpt-4-turbo,2.45,1,0.0,1,[MOCK] Pod is crash looping due to runtime panic in app container.

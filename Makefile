@@ -1,11 +1,19 @@
-.PHONY: help deploy destroy chaos eval
+.PHONY: help deploy destroy chaos capture eval summary
+
+INCIDENT ?= INC-001
+SCENARIO ?= pod_kill
+MODEL    ?= nvidia-qwen3
 
 help:
-	@echo "Available commands:"
-	@echo "  make deploy   - Apply Terraform and sync ArgoCD (stub)"
-	@echo "  make destroy  - Tear down everything (Terraform destroy)"
-	@echo "  make chaos    - Menu to run a specific chaos script"
-	@echo "  make eval     - Run the LLM evaluation pipeline across all incidents"
+	@echo "============================================"
+	@echo "  Kubernetes LLM Benchmark — Make Commands"
+	@echo "============================================"
+	@echo "  make deploy                       - Terraform apply + Helm installs"
+	@echo "  make destroy                      - Terraform destroy"
+	@echo "  make chaos SCENARIO=pod_kill      - Inject chaos (pod_kill|crash_loop|oom_kill)"
+	@echo "  make capture INCIDENT=INC-001     - Capture incident evidence"
+	@echo "  make eval INCIDENT=INC-001        - Run LLM evaluation and write to incidents.csv"
+	@echo "  make summary                      - Print benchmark results table"
 
 deploy:
 	@echo "Deploying Terraform infrastructure..."
@@ -16,18 +24,26 @@ destroy:
 	cd terraform/environments/dev && terraform destroy -auto-approve
 
 chaos:
-	@echo "Available Chaos Scripts:"
-	@echo "1. pod_kill"
-	@echo "2. crash_loop"
-	@echo "3. oom_kill"
-	@read -p "Select chaos to inject (1-3): " choice; \
-	case "$$choice" in \
-		1) bash k8s/chaos/pod_kill.sh ;; \
-		2) bash k8s/chaos/crash_loop.sh ;; \
-		3) bash k8s/chaos/oom_kill.sh ;; \
-		*) echo "Invalid selection" ;; \
+	@echo "Injecting chaos scenario: $(SCENARIO)"
+	@case "$(SCENARIO)" in \
+		pod_kill)    bash k8s/chaos/pod_kill.sh ;; \
+		crash_loop)  bash k8s/chaos/crash_loop.sh ;; \
+		oom_kill)    bash k8s/chaos/oom_kill.sh ;; \
+		*) echo "Unknown SCENARIO=$(SCENARIO). Valid: pod_kill, crash_loop, oom_kill" && exit 1 ;; \
 	esac
 
+capture:
+	@echo "Capturing incident: $(INCIDENT) | scenario: $(SCENARIO)"
+	@bash capture_incident.sh $(INCIDENT) $(SCENARIO) PodCrashLooping
+
 eval:
-	@echo "Running Python LLM Evaluation Framework..."
-	export PYTHONPATH=$$(pwd) && python3 -m pytest eval/
+	@echo "Running LLM evaluation for $(INCIDENT) using $(MODEL)..."
+	@export PYTHONPATH=$$(pwd) && \
+	  source venv/bin/activate && \
+	  python3 ai/llm_engine.py --incident data/raw_logs/$(INCIDENT) --model $(MODEL)
+	@echo "--- Tail of incidents.csv ---"
+	@tail -1 data/incidents.csv
+
+summary:
+	@echo "Generating results summary..."
+	@export PYTHONPATH=$$(pwd) && source venv/bin/activate && python3 eval/results_summary.py

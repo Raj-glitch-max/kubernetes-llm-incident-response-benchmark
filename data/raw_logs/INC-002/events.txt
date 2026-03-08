@@ -1,0 +1,5 @@
+LAST SEEN   TYPE      REASON     OBJECT                                 MESSAGE
+10m         Normal    Scheduled  pod/target-app-7d6c9f8b5d-n2mp1       Successfully assigned default/target-app
+9m          Normal    Started    pod/target-app-7d6c9f8b5d-n2mp1       Started container target-app
+3m          Warning   Unhealthy  pod/target-app-7d6c9f8b5d-n2mp1       Readiness probe failed: HTTP probe failed with statuscode: 503
+1m          Warning   Unhealthy  pod/target-app-7d6c9f8b5d-n2mp1       Liveness probe failed: Get "http://10.0.1.22:8080/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)

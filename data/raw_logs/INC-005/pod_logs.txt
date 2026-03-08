@@ -1,0 +1,5 @@
+2026-03-08T13:00:00Z INFO  target-app starting, version=v1.2
+2026-03-08T13:00:01Z INFO  connecting to redis://redis-svc:6379
+2026-03-08T13:00:03Z ERROR NOAUTH Authentication required for Redis connection
+2026-03-08T13:00:03Z ERROR failed to initialize session store: connection refused (redis: NOAUTH)
+2026-03-08T13:00:04Z FATAL cannot start without session backend, exiting

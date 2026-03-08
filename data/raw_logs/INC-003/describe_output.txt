@@ -1,0 +1,16 @@
+Name:         target-app-7d6c9f8b5d-kx3j2
+Namespace:    default
+Status:       Running
+Containers:
+  target-app:
+    Image:         target-app:v1.2
+    State:         Running
+    Ready:         True
+    Restart Count: 0
+    Limits:
+      cpu:     500m
+      memory:  256Mi
+    Requests:
+      cpu:     100m
+      memory:  128Mi
+QoS Class:    Burstable

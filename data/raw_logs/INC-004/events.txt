@@ -1,0 +1,5 @@
+LAST SEEN   TYPE      REASON     OBJECT                                 MESSAGE
+8m          Normal    Scheduled  pod/target-app-7d6c9f8b5d-7pvrl       Successfully assigned default/target-app
+8m          Normal    Started    pod/target-app-7d6c9f8b5d-7pvrl       Started container target-app
+5m          Warning   OOMKilling node/ip-10-0-1-7                      Memory cgroup out of memory: Kill process 8104 (target-app) score 999 or sacrifice child
+5m          Warning   BackOff    pod/target-app-7d6c9f8b5d-7pvrl       Back-off restarting failed container

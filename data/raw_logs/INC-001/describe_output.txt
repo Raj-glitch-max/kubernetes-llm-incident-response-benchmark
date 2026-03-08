@@ -1,0 +1,15 @@
+Name:         target-app-7d6c9f8b5d-xk9pq
+Namespace:    default
+Status:       Running
+Containers:
+  target-app:
+    Image:         target-app:v1.2
+    State:         Waiting
+      Reason:      CrashLoopBackOff
+    Last State:    Terminated
+      Reason:      Error
+      Exit Code:   1
+      Started:     Sun, 08 Mar 2026 11:00:01 +0000
+      Finished:    Sun, 08 Mar 2026 11:00:04 +0000
+    Ready:         False
+    Restart Count: 8

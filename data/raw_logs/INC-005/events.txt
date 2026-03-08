@@ -1,0 +1,4 @@
+LAST SEEN   TYPE      REASON    OBJECT                                 MESSAGE
+15m         Normal    Scheduled pod/target-app-7d6c9f8b5d-9pqmn      Successfully assigned default/target-app
+15m         Normal    Pulled    pod/target-app-7d6c9f8b5d-9pqmn      Successfully pulled image "target-app:v1.2"  
+3m          Warning   BackOff   pod/target-app-7d6c9f8b5d-9pqmn      Back-off restarting failed container target-app

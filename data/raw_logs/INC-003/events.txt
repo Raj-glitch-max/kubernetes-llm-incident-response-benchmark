@@ -1,0 +1,5 @@
+LAST SEEN   TYPE     REASON              OBJECT                              MESSAGE
+5m          Normal   Scheduled           pod/target-app-7d6c9f8b5d-kx3j2    Successfully assigned default/target-app
+5m          Normal   Started             pod/target-app-7d6c9f8b5d-kx3j2    Started container target-app
+2m          Warning  CPUThrottling       pod/target-app-7d6c9f8b5d-kx3j2    CPU throttling: 87% throttled cpu seconds
+1m          Warning  OOMKilling          node/ip-10-0-1-7                    System OOM encountered, victim process: stress, pid=12341

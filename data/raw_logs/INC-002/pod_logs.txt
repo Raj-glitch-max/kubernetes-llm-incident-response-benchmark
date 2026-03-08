@@ -1,0 +1,5 @@
+2026-03-08T11:30:00Z INFO  target-app started successfully
+2026-03-08T11:30:05Z WARN  health check endpoint /readiness returned 503
+2026-03-08T11:30:10Z ERROR dial tcp 10.0.1.5:5432: connect: connection timed out
+2026-03-08T11:30:10Z ERROR failed to reach upstream service: net/http: request canceled (Client.Timeout exceeded)
+2026-03-08T11:30:15Z ERROR i/o timeout on socket to 10.96.0.10:53 (kube-dns)

@@ -1,0 +1,4 @@
+2026-03-08T11:00:01Z INFO  target-app starting, waiting for config...
+2026-03-08T11:00:03Z ERROR ConfigMap 'app-config' not found in namespace 'default'
+2026-03-08T11:00:03Z FATAL missing required configuration: DATABASE_URL
+2026-03-08T11:00:04Z INFO  Process exited with code 1

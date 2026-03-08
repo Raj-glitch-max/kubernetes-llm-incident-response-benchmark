@@ -1,0 +1,14 @@
+Name:         target-app-7d6c9f8b5d-n2mp1
+Namespace:    default
+Status:       Running
+Containers:
+  target-app:
+    Image:         target-app:v1.2
+    State:         Running
+    Ready:         False
+    Restart Count: 0
+Conditions:
+  Ready             False
+  ContainersReady   False
+Events:
+  Warning  Unhealthy  2m  kubelet  Readiness probe failed: HTTP probe failed with statuscode: 503

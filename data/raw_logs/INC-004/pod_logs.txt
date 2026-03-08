@@ -1,0 +1,5 @@
+2026-03-08T12:30:00Z INFO  target-app started, heap allocation: 12MB
+2026-03-08T12:31:10Z INFO  heap allocation: 89MB — processing large batch job
+2026-03-08T12:32:05Z WARN  GC pressure: 42 GC cycles in last 60s
+2026-03-08T12:32:58Z ERROR runtime: out of memory: cannot allocate 104857600-byte block (64 MB remaining)
+2026-03-08T12:33:01Z FATAL signal: killed

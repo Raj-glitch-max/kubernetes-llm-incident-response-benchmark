@@ -3,8 +3,7 @@ message: "If you use this benchmark in your research, please cite it as follows.
 authors:
   - family-names: "Raj"
     given-names: "G."
-  - family-names: "Soham"
-    given-names: "M."
+
 title: "k8s-llm-rca-bench: A Kubernetes LLM Root Cause Analysis Benchmark"
 version: 1.0.0
 date-released: 2026-03-09

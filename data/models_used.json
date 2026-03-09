@@ -1,0 +1,48 @@
+{
+  "benchmark_run_date": "2026-03-09",
+  "benchmark_version": "v1.0",
+  "notes": "Snapshot IDs are pinned for reproducibility. OpenAI silently updates models; always use snapshot_id in API calls.",
+  "models": {
+    "gpt-4-turbo": {
+      "snapshot_id": "gpt-4-turbo-2024-04-09",
+      "provider": "openai",
+      "params_B": 1760,
+      "api_param": "gpt-4-turbo",
+      "note": "Pin via model= field in OpenAI API call. Snapshot gpt-4-turbo-2024-04-09 was the deployed version at benchmark run time."
+    },
+    "z-ai/glm4.7": {
+      "snapshot_id": "THUDM/glm-4-9b-chat",
+      "provider": "nvidia-nim",
+      "params_B": 9,
+      "api_base": "https://integrate.api.nvidia.com/v1",
+      "note": "9B parameter GLM-4 variant from ZhipuAI. Served via NVIDIA NIM."
+    },
+    "meta/llama-3.1-70b-instruct": {
+      "snapshot_id": "meta-llama/Llama-3.1-70B-Instruct",
+      "provider": "nvidia-nim",
+      "params_B": 70,
+      "api_base": "https://integrate.api.nvidia.com/v1",
+      "note": "Llama 3.1 70B Instruct. RLHF-trained with helpfulness objective."
+    },
+    "meta/llama-3.3-70b-instruct": {
+      "snapshot_id": "meta-llama/Llama-3.3-70B-Instruct",
+      "provider": "nvidia-nim",
+      "params_B": 70,
+      "api_base": "https://integrate.api.nvidia.com/v1",
+      "note": "Llama 3.3 70B Instruct. Only 1 evaluation run in current dataset — insufficient for significance."
+    },
+    "mistralai/mistral-7b-instruct-v0.3": {
+      "snapshot_id": "mistralai/Mistral-7B-Instruct-v0.3",
+      "provider": "nvidia-nim",
+      "params_B": 7,
+      "api_base": "https://integrate.api.nvidia.com/v1",
+      "note": "Mistral 7B v0.3. DPO + SFT with helpfulness-first objective. Exhibits highest P1 severity risk (83.3%)."
+    },
+    "claude-3-sonnet": {
+      "snapshot_id": "claude-3-sonnet-20240229",
+      "provider": "anthropic",
+      "params_B": null,
+      "note": "Claude 3 Sonnet. Not yet evaluated in v1 dataset — included for planned Phase 2 runs."
+    }
+  }
+}

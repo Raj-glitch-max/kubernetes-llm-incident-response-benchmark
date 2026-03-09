@@ -32,9 +32,9 @@
       "verdict": "GROUNDED"
     },
     "gpt-4-turbo": {
-      "total": 12,
-      "correct": 12,
-      "confident_liar_count": 10,
+      "total": 18,
+      "correct": 18,
+      "confident_liar_count": 15,
       "confident_liar_pct": 83.3,
       "verdict": "LIAR"
     }

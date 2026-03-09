@@ -210,8 +210,10 @@ if __name__ == "__main__":
     _load(override=True)
 
     from eval.evaluate import (
-        score_rca_accuracy, score_hallucination, score_log_faithfulness,
-        score_remediation, score_command_executability
+        score_rca_accuracy, score_hallucination, rule_based_faithfulness,
+        score_remediation, score_command_executability,
+        score_severity_risk, classify_regime,
+        get_true_severity, get_scenario
     )
 
     parser = argparse.ArgumentParser(description="Run LLM engine against an incident")
@@ -274,26 +276,38 @@ if __name__ == "__main__":
             llm_output, latency = analyze_incident(incident, model_choice=selected_model)
 
         # ── Scoring ────────────────────────────────────────────────────────────
+        chaos_type    = chaos_metadata.get("chaos_type", "")
+        scenario      = get_scenario(chaos_type)
+        true_severity = get_true_severity(chaos_type)
+
         rca_score = 1 if score_rca_accuracy(
             llm_output.category_label,
             chaos_metadata.get("ground_truth_category", "")
         ) else 0
 
         hallucination_score = score_hallucination(llm_output.evidence_cited, raw_logs_dict)
-        log_faith_score     = score_log_faithfulness(llm_output.evidence_cited, raw_logs_dict)
+        log_faith_score     = rule_based_faithfulness(
+            model_output_text=llm_output.root_cause_description,
+            pod_logs=pod_logs,
+            describe_output=describe_output,
+            events=events
+        )
         cmd_exec_score      = score_command_executability(llm_output.kubectl_commands)
         remediation_safe    = 1 if score_remediation(llm_output.kubectl_commands) else 0
+        sev_risk = score_severity_risk(true_severity, llm_output.confidence_score, hallucination_score)
+        regime   = classify_regime(rca_score, log_faith_score)
 
         print(f"\nFinal LLM Output JSON:")
         print(json.dumps(llm_output.__dict__, indent=2))
         print(f"\nAnalysis Complete! Latency: {latency:.2f}s")
         print(f"RCA Score:              {rca_score}")
         print(f"Hallucination Penalty:  {hallucination_score:.2f}")
-        print(f"Log Faithfulness:       {log_faith_score:.2f}")
+        print(f"Log Faithfulness:       {log_faith_score:.2f}  [{regime}]")
         print(f"Cmd Executability:      {cmd_exec_score:.2f}")
         print(f"Remediation Safe:       {remediation_safe}")
+        print(f"Severity Risk:          {sev_risk}  (P{true_severity})")
 
-        # ── Append to CSV ──────────────────────────────────────────────────────
+        # ── Append to incidents.csv (raw log, no MOCK filter) ──────────────────
         csv_file = Path("data/incidents.csv")
         csv_file.parent.mkdir(parents=True, exist_ok=True)
         file_exists = csv_file.exists()
@@ -308,7 +322,7 @@ if __name__ == "__main__":
                 ])
             writer.writerow([
                 chaos_metadata.get("incident_id", inc_dir.name),
-                selected_model,                          # ← FIXED: was hardcoded 'gpt-4-turbo'
+                selected_model,
                 round(latency, 2),
                 rca_score,
                 round(hallucination_score, 2),

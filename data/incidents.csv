@@ -46,3 +46,9 @@ INC-014,mistralai/mistral-7b-instruct-v0.3,7.65,1,1.0,0.0,0.0,1,1.0,The root cau
 INC-014,z-ai/glm4.7,152.83,1,0.0,1.0,0.5,1,1.0,"The pod is unable to start because the container image specified in the deployment configuration does not exist in the container registry. The kubelet attempted to pull image 'nginx:this-tag-is-fake-123' but received a 'NotFound' error, causing the pod to enter the ImagePullBackOff state."
 INC-015,meta/llama-3.1-70b-instruct,5.89,0,1.0,0.0,0.0,1,0.6,"The root cause of the MemoryPressure alert is not directly related to the provided pod logs or describe output. However, the events suggest that there was an attempt to pull a non-existent image 'nginx:this-tag-is-fake-123' which led to a series of errors and pod restarts. This could have potentially led to increased memory usage, triggering the MemoryPressure alert."
 INC-015,mistralai/mistral-7b-instruct-v0.3,5.19,1,1.0,0.0,0.0,1,0.9,"The root cause of the incident is a memory pressure due to the execution of a script in the Docker entrypoint of the nginx container, which is consuming excessive resources."
+INC-000,gpt-4-turbo,2.45,1,0.0,0.5,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
+INC-001,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
+INC-002,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
+INC-003,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
+INC-004,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
+INC-005,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.

@@ -33,15 +33,17 @@ destroy:
 chaos:
 	@echo "Injecting chaos scenario: $(SCENARIO)"
 	@case "$(SCENARIO)" in \
-		pod_kill)          bash k8s/chaos/pod_kill.sh ;; \
-		crash_loop)        bash k8s/chaos/crash_loop.sh ;; \
-		oom_kill)          bash k8s/chaos/oom_kill.sh ;; \
-		cpu_stress)        bash k8s/chaos/cpu_stress.sh ;; \
-		memory_hog)        bash k8s/chaos/memory_hog.sh ;; \
-		network_partition) bash k8s/chaos/network_partition.sh ;; \
-		adversarial_logs)  bash k8s/chaos/adversarial_logs.sh ;; \
+		pod_kill)           bash k8s/chaos/pod_kill.sh ;; \
+		crash_loop)         bash k8s/chaos/crash_loop.sh ;; \
+		oom_kill)           bash k8s/chaos/oom_kill.sh ;; \
+		cpu_stress)         bash k8s/chaos/cpu_stress.sh ;; \
+		memory_hog)         bash k8s/chaos/memory_hog.sh ;; \
+		network_partition)  bash k8s/chaos/network_partition.sh ;; \
+		adversarial_logs)   bash k8s/chaos/adversarial_logs.sh ;; \
+		cascading_failure)  bash k8s/chaos/cascading_failure.sh ;; \
 		*) echo "Unknown SCENARIO=$(SCENARIO)." && \
-		   echo "Valid: pod_kill, crash_loop, oom_kill, cpu_stress, memory_hog, network_partition, adversarial_logs" && \
+		   echo "Valid: pod_kill, crash_loop, oom_kill, cpu_stress, memory_hog," && \
+		   echo "       network_partition, adversarial_logs, cascading_failure" && \
 		   exit 1 ;; \
 	esac
 

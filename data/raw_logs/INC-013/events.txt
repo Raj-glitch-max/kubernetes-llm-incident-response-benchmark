@@ -1,0 +1,26 @@
+LAST SEEN   TYPE     REASON              OBJECT                             MESSAGE
+14m         Normal   Scheduled           pod/target-app-6bdb79f679-7p9hz    Successfully assigned default/target-app-6bdb79f679-7p9hz to ip-10-0-2-175.ec2.internal
+31m         Normal   Scheduled           pod/target-app-6bdb79f679-4f79h    Successfully assigned default/target-app-6bdb79f679-4f79h to ip-10-0-2-175.ec2.internal
+25m         Normal   Scheduled           pod/target-app-6bdb79f679-4mj7b    Successfully assigned default/target-app-6bdb79f679-4mj7b to ip-10-0-2-175.ec2.internal
+31m         Normal   Scheduled           pod/target-app-6bdb79f679-rlmnd    Successfully assigned default/target-app-6bdb79f679-rlmnd to ip-10-0-1-209.ec2.internal
+31m         Normal   Pulling             pod/target-app-6bdb79f679-4f79h    Pulling image "nginx:1.25"
+31m         Normal   ScalingReplicaSet   deployment/target-app              Scaled up replica set target-app-6bdb79f679 to 2
+31m         Normal   SuccessfulCreate    replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-rlmnd
+31m         Normal   SuccessfulCreate    replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-4f79h
+31m         Normal   Pulling             pod/target-app-6bdb79f679-rlmnd    Pulling image "nginx:1.25"
+31m         Normal   Created             pod/target-app-6bdb79f679-rlmnd    Created container: target-app
+31m         Normal   Pulled              pod/target-app-6bdb79f679-rlmnd    Successfully pulled image "nginx:1.25" in 2.888s (2.888s including waiting)
+31m         Normal   Pulled              pod/target-app-6bdb79f679-4f79h    Successfully pulled image "nginx:1.25" in 3.022s (3.022s including waiting)
+31m         Normal   Created             pod/target-app-6bdb79f679-4f79h    Created container: target-app
+31m         Normal   Started             pod/target-app-6bdb79f679-rlmnd    Started container target-app
+31m         Normal   Started             pod/target-app-6bdb79f679-4f79h    Started container target-app
+25m         Normal   SuccessfulCreate    replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-4mj7b
+25m         Normal   Killing             pod/target-app-6bdb79f679-4f79h    Stopping container target-app
+25m         Normal   Pulled              pod/target-app-6bdb79f679-4mj7b    Container image "nginx:1.25" already present on machine
+25m         Normal   Created             pod/target-app-6bdb79f679-4mj7b    Created container: target-app
+25m         Normal   Started             pod/target-app-6bdb79f679-4mj7b    Started container target-app
+14m         Normal   Killing             pod/target-app-6bdb79f679-4mj7b    Stopping container target-app
+14m         Normal   SuccessfulCreate    replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-7p9hz
+14m         Normal   Started             pod/target-app-6bdb79f679-7p9hz    Started container target-app
+14m         Normal   Created             pod/target-app-6bdb79f679-7p9hz    Created container: target-app
+14m         Normal   Pulled              pod/target-app-6bdb79f679-7p9hz    Container image "nginx:1.25" already present on machine

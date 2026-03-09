@@ -1,0 +1,46 @@
+LAST SEEN   TYPE      REASON                    OBJECT                             MESSAGE
+29s         Normal    Scheduled                 pod/target-app-6bdb79f679-7p9hz    Successfully assigned default/target-app-6bdb79f679-7p9hz to ip-10-0-2-175.ec2.internal
+55m         Normal    Starting                  node/ip-10-0-2-175.ec2.internal    
+11m         Normal    Scheduled                 pod/target-app-6bdb79f679-4mj7b    Successfully assigned default/target-app-6bdb79f679-4mj7b to ip-10-0-2-175.ec2.internal
+17m         Normal    Scheduled                 pod/target-app-6bdb79f679-4f79h    Successfully assigned default/target-app-6bdb79f679-4f79h to ip-10-0-2-175.ec2.internal
+17m         Normal    Scheduled                 pod/target-app-6bdb79f679-rlmnd    Successfully assigned default/target-app-6bdb79f679-rlmnd to ip-10-0-1-209.ec2.internal
+55m         Normal    Starting                  node/ip-10-0-1-209.ec2.internal    
+55m         Normal    Starting                  node/ip-10-0-2-175.ec2.internal    Starting kubelet.
+55m         Normal    NodeAllocatableEnforced   node/ip-10-0-2-175.ec2.internal    Updated Node Allocatable limit across pods
+55m         Warning   InvalidDiskCapacity       node/ip-10-0-2-175.ec2.internal    invalid capacity 0 on image filesystem
+55m         Normal    NodeHasSufficientMemory   node/ip-10-0-2-175.ec2.internal    Node ip-10-0-2-175.ec2.internal status is now: NodeHasSufficientMemory
+55m         Normal    NodeHasNoDiskPressure     node/ip-10-0-2-175.ec2.internal    Node ip-10-0-2-175.ec2.internal status is now: NodeHasNoDiskPressure
+55m         Normal    NodeHasSufficientPID      node/ip-10-0-2-175.ec2.internal    Node ip-10-0-2-175.ec2.internal status is now: NodeHasSufficientPID
+55m         Normal    Synced                    node/ip-10-0-2-175.ec2.internal    Node synced successfully
+55m         Normal    NodeAllocatableEnforced   node/ip-10-0-1-209.ec2.internal    Updated Node Allocatable limit across pods
+55m         Normal    NodeHasSufficientPID      node/ip-10-0-1-209.ec2.internal    Node ip-10-0-1-209.ec2.internal status is now: NodeHasSufficientPID
+55m         Normal    NodeHasNoDiskPressure     node/ip-10-0-1-209.ec2.internal    Node ip-10-0-1-209.ec2.internal status is now: NodeHasNoDiskPressure
+55m         Normal    NodeHasSufficientMemory   node/ip-10-0-1-209.ec2.internal    Node ip-10-0-1-209.ec2.internal status is now: NodeHasSufficientMemory
+55m         Warning   InvalidDiskCapacity       node/ip-10-0-1-209.ec2.internal    invalid capacity 0 on image filesystem
+55m         Normal    Starting                  node/ip-10-0-1-209.ec2.internal    Starting kubelet.
+55m         Normal    Synced                    node/ip-10-0-1-209.ec2.internal    Node synced successfully
+55m         Normal    RegisteredNode            node/ip-10-0-1-209.ec2.internal    Node ip-10-0-1-209.ec2.internal event: Registered Node ip-10-0-1-209.ec2.internal in Controller
+55m         Normal    RegisteredNode            node/ip-10-0-2-175.ec2.internal    Node ip-10-0-2-175.ec2.internal event: Registered Node ip-10-0-2-175.ec2.internal in Controller
+55m         Normal    NodeReady                 node/ip-10-0-2-175.ec2.internal    Node ip-10-0-2-175.ec2.internal status is now: NodeReady
+55m         Normal    NodeReady                 node/ip-10-0-1-209.ec2.internal    Node ip-10-0-1-209.ec2.internal status is now: NodeReady
+17m         Normal    Pulling                   pod/target-app-6bdb79f679-4f79h    Pulling image "nginx:1.25"
+17m         Normal    ScalingReplicaSet         deployment/target-app              Scaled up replica set target-app-6bdb79f679 to 2
+17m         Normal    SuccessfulCreate          replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-rlmnd
+17m         Normal    SuccessfulCreate          replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-4f79h
+17m         Normal    Pulling                   pod/target-app-6bdb79f679-rlmnd    Pulling image "nginx:1.25"
+17m         Normal    Pulled                    pod/target-app-6bdb79f679-4f79h    Successfully pulled image "nginx:1.25" in 3.022s (3.022s including waiting)
+17m         Normal    Pulled                    pod/target-app-6bdb79f679-rlmnd    Successfully pulled image "nginx:1.25" in 2.888s (2.888s including waiting)
+17m         Normal    Created                   pod/target-app-6bdb79f679-4f79h    Created container: target-app
+17m         Normal    Started                   pod/target-app-6bdb79f679-rlmnd    Started container target-app
+17m         Normal    Created                   pod/target-app-6bdb79f679-rlmnd    Created container: target-app
+17m         Normal    Started                   pod/target-app-6bdb79f679-4f79h    Started container target-app
+11m         Normal    SuccessfulCreate          replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-4mj7b
+11m         Normal    Killing                   pod/target-app-6bdb79f679-4f79h    Stopping container target-app
+11m         Normal    Pulled                    pod/target-app-6bdb79f679-4mj7b    Container image "nginx:1.25" already present on machine
+11m         Normal    Created                   pod/target-app-6bdb79f679-4mj7b    Created container: target-app
+11m         Normal    Started                   pod/target-app-6bdb79f679-4mj7b    Started container target-app
+30s         Normal    Killing                   pod/target-app-6bdb79f679-4mj7b    Stopping container target-app
+30s         Normal    SuccessfulCreate          replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-7p9hz
+29s         Normal    Started                   pod/target-app-6bdb79f679-7p9hz    Started container target-app
+29s         Normal    Created                   pod/target-app-6bdb79f679-7p9hz    Created container: target-app
+29s         Normal    Pulled                    pod/target-app-6bdb79f679-7p9hz    Container image "nginx:1.25" already present on machine

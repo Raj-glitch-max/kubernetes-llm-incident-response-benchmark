@@ -1,43 +1,33 @@
 {
   "z-ai/glm4.7": {
-    "incidents_evaluated": 6,
+    "incidents_evaluated": 5,
     "rca_accuracy": 1.0,
-    "hallucination_penalty": 0.138,
-    "log_faithfulness": 0.0,
-    "cmd_executability": 0.0,
+    "hallucination_penalty": 0.134,
+    "log_faithfulness": 0.866,
+    "cmd_executability": 0.3,
     "remediation_safe": 1.0,
-    "avg_latency_sec": 51.4,
-    "avg_confidence": 0.0
-  },
-  "gpt-4-turbo": {
-    "incidents_evaluated": 3,
-    "rca_accuracy": 1.0,
-    "hallucination_penalty": 0.167,
-    "log_faithfulness": 0.0,
-    "cmd_executability": 0.0,
-    "remediation_safe": 1.0,
-    "avg_latency_sec": 64.8,
-    "avg_confidence": 0.0
+    "avg_latency_sec": 128.1,
+    "avg_confidence": 1.0
   },
   "mistralai/mistral-7b-instruct-v0.3": {
-    "incidents_evaluated": 10,
+    "incidents_evaluated": 15,
     "rca_accuracy": 0.8,
-    "hallucination_penalty": 0.85,
-    "log_faithfulness": 0.15,
+    "hallucination_penalty": 0.7,
+    "log_faithfulness": 0.3,
     "cmd_executability": 0.0,
     "remediation_safe": 1.0,
-    "avg_latency_sec": 6.9,
-    "avg_confidence": 0.935
+    "avg_latency_sec": 6.8,
+    "avg_confidence": 0.93
   },
   "meta/llama-3.1-70b-instruct": {
-    "incidents_evaluated": 9,
-    "rca_accuracy": 0.778,
-    "hallucination_penalty": 0.889,
-    "log_faithfulness": 0.111,
-    "cmd_executability": 0.092,
+    "incidents_evaluated": 14,
+    "rca_accuracy": 0.714,
+    "hallucination_penalty": 0.857,
+    "log_faithfulness": 0.143,
+    "cmd_executability": 0.059,
     "remediation_safe": 1.0,
-    "avg_latency_sec": 3.8,
-    "avg_confidence": 0.911
+    "avg_latency_sec": 3.9,
+    "avg_confidence": 0.878
   },
   "meta/llama-3.3-70b-instruct": {
     "incidents_evaluated": 1,

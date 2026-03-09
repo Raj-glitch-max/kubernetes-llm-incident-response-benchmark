@@ -1,0 +1,6 @@
+{
+  "incident_id": "INC-012",
+  "timestamp": "2026-03-09T07:13:54Z",
+  "chaos_type": "adversarial_logs",
+  "ground_truth_category": "PodOOMKilled"
+}

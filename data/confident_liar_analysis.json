@@ -3,20 +3,6 @@
   "description": "Models that give correct RCA labels with zero log-grounded evidence",
   "dataset": "10 real K8s chaos incidents (INC-001 to INC-010)",
   "models": {
-    "z-ai/glm4.7": {
-      "total": 6,
-      "correct": 6,
-      "confident_liar_count": 6,
-      "confident_liar_pct": 100.0,
-      "verdict": "LIAR"
-    },
-    "gpt-4-turbo": {
-      "total": 3,
-      "correct": 3,
-      "confident_liar_count": 3,
-      "confident_liar_pct": 100.0,
-      "verdict": "LIAR"
-    },
     "meta/llama-3.3-70b-instruct": {
       "total": 1,
       "correct": 0,
@@ -25,17 +11,31 @@
       "verdict": "GROUNDED"
     },
     "mistralai/mistral-7b-instruct-v0.3": {
-      "total": 10,
-      "correct": 8,
-      "confident_liar_count": 6,
-      "confident_liar_pct": 75.0,
-      "verdict": "LIAR"
+      "total": 15,
+      "correct": 12,
+      "confident_liar_count": 8,
+      "confident_liar_pct": 66.7,
+      "verdict": "MIXED"
     },
     "meta/llama-3.1-70b-instruct": {
-      "total": 9,
-      "correct": 7,
-      "confident_liar_count": 6,
-      "confident_liar_pct": 85.7,
+      "total": 14,
+      "correct": 10,
+      "confident_liar_count": 9,
+      "confident_liar_pct": 90.0,
+      "verdict": "LIAR"
+    },
+    "z-ai/glm4.7": {
+      "total": 5,
+      "correct": 5,
+      "confident_liar_count": 0,
+      "confident_liar_pct": 0.0,
+      "verdict": "GROUNDED"
+    },
+    "gpt-4-turbo": {
+      "total": 12,
+      "correct": 12,
+      "confident_liar_count": 10,
+      "confident_liar_pct": 83.3,
       "verdict": "LIAR"
     }
   }

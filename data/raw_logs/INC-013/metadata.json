@@ -1,0 +1,6 @@
+{
+  "incident_id": "INC-013",
+  "timestamp": "2026-03-09T07:22:14Z",
+  "chaos_type": "network_partition",
+  "ground_truth_category": "NetworkFailure"
+}

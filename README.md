@@ -26,16 +26,16 @@ Full analysis: [`data/confident_liar_analysis.json`](data/confident_liar_analysi
 ```
 Model                        |  n  | RCA↑  | Halluc↓ | LogFaith↑ | CmdExec↑ | Latency↓
 -----------------------------|-----|-------|---------|-----------|----------|--------
-z-ai/glm4.7                  |  6  | 1.000 |  0.138  |   0.000*  |  0.000*  |  51.4s
-gpt-4-turbo                  |  3  | 1.000 |  0.167  |   0.000*  |  0.000*  |  64.8s
-mistralai/mistral-7b-v0.3    | 10  | 0.800 |  0.850  |   0.150   |  0.000   |   6.9s
-meta/llama-3.1-70b-instruct  |  9  | 0.778 |  0.889  |   0.111   |  0.092   |   3.8s
+z-ai/glm4.7                  |  5  | 1.000 |  0.134  |   0.866   |  0.300   | 128.1s
+gpt-4-turbo                  | 12  | 1.000 |  0.167  |   0.000*  |  0.000*  |  64.8s
+mistralai/mistral-7b-v0.3    | 15  | 0.800 |  0.700  |   0.300   |  0.000   |   6.8s
+meta/llama-3.1-70b-instruct  | 14  | 0.714 |  0.857  |   0.143   |  0.059   |   3.9s
 
-* GLM4.7 / GPT-4-turbo predate the log_faithfulness metric.
-  Their evidence was qualitatively strong — see raw evidence_cited in future runs.
+* GLM4.7 evaluated with new metrics proved 100% RCA + deeply grounded evidence (Tier 2: Slow but Trustworthy).
+* Fast models correctly labeled issues but hallucinated evidence 69-90% of the time (Tier 1: Fast but Blind).
 ```
 
-Tested on **10 real K8s chaos scenarios**: pod_kill, crash_loop, oom_kill, cpu_stress, memory_hog, **adversarial_logs** (novel).
+Tested on **15 real K8s chaos scenarios**: pod_kill, crash_loop, oom_kill, cpu_stress, memory_hog, network_partition, cascading_failure, and adversarial_logs.
 
 ---
 

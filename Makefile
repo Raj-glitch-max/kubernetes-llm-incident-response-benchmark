@@ -8,6 +8,7 @@ help:
 	@echo "============================================"
 	@echo "  Kubernetes LLM Benchmark — Make Commands"
 	@echo "============================================"
+	@echo "  make doctor                               - Verify local environment setup"
 	@echo "  make deploy                               - Terraform apply + infra"
 	@echo "  make destroy                              - Terraform destroy"
 	@echo "  make chaos SCENARIO=pod_kill              - Inject chaos scenario"
@@ -21,6 +22,10 @@ help:
 	@echo "  make leaderboard                          - Generate data/leaderboard.json"
 	@echo "  make run INCIDENT=INC-006 SCENARIO=cpu_stress MODEL=nvidia-llama"
 	@echo "         Shortcut: chaos + capture + eval in one command"
+	@echo "  make rlhf_test                            - Run Phase 2 RLHF validation"
+
+doctor:
+	@python3 scripts/check_env.py
 
 deploy:
 	@echo "Deploying Terraform infrastructure..."

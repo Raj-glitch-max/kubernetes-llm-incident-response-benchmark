@@ -20,12 +20,17 @@ help:
 	@echo "             or any NVIDIA NIM model slug"
 	@echo "  make summary                              - Print benchmark results table"
 	@echo "  make leaderboard                          - Generate data/leaderboard.json"
+	@echo "  make visualize                            - Generate diagnostic charts"
 	@echo "  make run INCIDENT=INC-006 SCENARIO=cpu_stress MODEL=nvidia-llama"
 	@echo "         Shortcut: chaos + capture + eval in one command"
 	@echo "  make rlhf_test                            - Run Phase 2 RLHF validation"
 
 doctor:
 	@python3 scripts/check_env.py
+
+visualize:
+	@echo "Generating diagnostic visualizations..."
+	@export PYTHONPATH=$$(pwd) && . venv/bin/activate && python3 eval/visualize.py
 
 deploy:
 	@echo "Deploying Terraform infrastructure..."

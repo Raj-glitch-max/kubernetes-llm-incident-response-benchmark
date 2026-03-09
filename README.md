@@ -1,4 +1,7 @@
+![Kubernetes LLM Benchmark Banner](docs/assets/banner.png)
+
 # Kubernetes LLM Incident Response Benchmark
+
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -45,6 +48,9 @@ Every (model × incident) run is classified into one of five regimes:
 | HONEST_FAILURE | 23% | Wrong + no evidence | Escalate to human |
 | PARTIAL_GROUNDING | 23% | Correct + keyword-anchored | ⚠️ Review before acting |
 | TRUSTED_DIAGNOSIS | — | Correct + verbatim log citation | ✅ Safe to act |
+
+### 📊 Visualization: Diagnostic Reliability Quadrant
+![Diagnostic Reliability Quadrant](docs/assets/diagnostic_quadrant.png)
 
 > **INC-009 Finding (telemetry gap):** All models failed simultaneously on `INC-009 (oom_kill)` — confirmed via log grep that the `OOMKilled` keyword was **absent** from events.txt. Models correctly failed because the causal signal wasn't in the context. This also means a consensus gate would silently fail on telemetry-incomplete incidents.
 

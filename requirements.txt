@@ -3,3 +3,6 @@ anthropic
 pytest
 black
 python-dotenv
+pandas
+matplotlib
+httpx

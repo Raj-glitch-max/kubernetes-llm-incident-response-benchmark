@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this benchmark in your research, please cite it as follows."
+authors:
+  - family-names: "Raj"
+    given-names: "Owner"
+  - family-names: "Soham"
+    given-names: "Maintainer"
+title: "k8s-llm-rca-bench: A Kubernetes LLM Root Cause Analysis Benchmark"
+version: 0.1.0
+date-released: 2026-03-09
+url: "https://github.com/Raj-glitch-max/kubernetes-llm-incident-response-benchmark"
+keywords:
+  - kubernetes
+  - large-language-models
+  - root-cause-analysis
+  - chaos-engineering
+  - observability
+  - site-reliability-engineering

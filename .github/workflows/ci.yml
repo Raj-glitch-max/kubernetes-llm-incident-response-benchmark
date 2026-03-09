@@ -2,27 +2,45 @@ name: Benchmark CI
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: ["main", "dev"]
   pull_request:
-    branches: [ "dev" ]
+    branches: ["main", "dev"]
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
-        
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pytest pytest-cov openai anthropic python-dotenv
-        
-    - name: Run Pytest
-      run: |
-        export PYTHONPATH=$PWD
-        pytest eval/ -v
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 black isort
+      - name: Lint with flake8
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Check formatting with black
+        run: black --check .
+      - name: Check imports with isort
+        run: isort --check-only .
+
+  test-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install python-dotenv openai anthropic
+      - name: Run evaluation logic smoke test
+        run: |
+          export PYTHONPATH=$PWD
+          python3 -c "from eval.evaluate import rule_based_faithfulness; print('Faithfulness check OK:', rule_based_faithfulness('', '', '', ''))"

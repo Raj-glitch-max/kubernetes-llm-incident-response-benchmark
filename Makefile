@@ -72,3 +72,12 @@ summary:
 leaderboard:
 	@echo "Generating leaderboard..."
 	@export PYTHONPATH=$$(pwd) && source venv/bin/activate && python3 eval/leaderboard.py
+
+ablation:
+	@echo "Running Phase 2 Ablation (telemetry blackout) for $(INCIDENT) using $(MODEL)..."
+	@export PYTHONPATH=$$(pwd) && source venv/bin/activate && \
+	  python3 eval/ablation.py --incident $(INCIDENT) --model $(MODEL)
+
+rlhf_test:
+	@echo "Running Phase 2 RLHF Overconfidence test..."
+	@export PYTHONPATH=$$(pwd) && source venv/bin/activate && python3 eval/rlhf_test.py

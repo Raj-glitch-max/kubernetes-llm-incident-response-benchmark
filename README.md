@@ -146,6 +146,22 @@ Model snapshot IDs: [`data/models_used.json`](data/models_used.json)
 Dataset: `data/k8s_rca_bench_final.csv` (35 real evaluated rows, no placeholders)  
 Evaluation: `eval/evaluate.py` — rule-based, deterministic, no API calls for scoring
 
+## 📚 How to Cite
+
+If you use this benchmark in theoretical or empirical research, please cite our Phase 1 findings:
+
+```bibtex
+@software{k8s_llm_rca_bench_2026,
+  author = {Raj and Soham},
+  title = {k8s-llm-rca-bench: A Kubernetes LLM Root Cause Analysis Benchmark},
+  year = {2026},
+  url = {https://github.com/Raj-glitch-max/kubernetes-llm-incident-response-benchmark},
+  version = {0.1.0}
+}
+```
+Alternatively, see [CITATION.cff](CITATION.cff).
+
+
 ---
 
 ## ✨ Community & Contribution

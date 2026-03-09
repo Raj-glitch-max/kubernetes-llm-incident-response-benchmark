@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "k8s-llm-rca-bench"
+version = "0.1.0"
+authors = [
+  { name="Raj", email="raj@example.com" },
+  { name="Soham", email="soham@example.com" },
+]
+description = "A Kubernetes LLM Root Cause Analysis Benchmark"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: System :: Monitoring",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "openai>=1.0.0",
+    "anthropic>=0.18.0",
+    "python-dotenv>=1.0.0",
+    "httpx>=0.25.0",
+    "pandas>=2.0.0",
+    "matplotlib>=3.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "flake8",
+    "isort",
+    "pytest",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Raj-glitch-max/kubernetes-llm-incident-response-benchmark"
+"Bug Tracker" = "https://github.com/Raj-glitch-max/kubernetes-llm-incident-response-benchmark/issues"
+
+[tool.black]
+line-length = 100
+target-version = ['py39']
+
+[tool.isort]
+profile = "black"
+line_length = 100

@@ -126,7 +126,18 @@ def _extract_json_from_raw(raw: str, model_label: str) -> dict:
             raise ValueError(
                 f"{model_label} returned non-JSON output (length={len(raw)}): {raw[:400]}"
             )
-        return json.loads(raw[start_idx:end_idx + 1])
+        
+        json_str = raw[start_idx:end_idx + 1]
+        try:
+            return json.loads(json_str)
+        except json.JSONDecodeError as err:
+            import ast
+            try:
+                # ast.literal_eval can parse some slightly malformed python dicts
+                return ast.literal_eval(json_str)
+            except Exception:
+                # If it still fails, bubble up the specific decode error
+                raise ValueError(f"{model_label} returned malformed JSON: {err}\\nRaw:\\n{json_str}")
 
 
 def call_nvidia_nim(model_id: str, incident: IncidentInput) -> LLMOutput:

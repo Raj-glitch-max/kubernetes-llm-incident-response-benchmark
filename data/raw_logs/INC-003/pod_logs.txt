@@ -1,5 +1,1 @@
-2026-03-08T12:00:00Z INFO  target-app started successfully
-2026-03-08T12:03:12Z WARN  request processing latency exceeded threshold: p99=4820ms target=200ms
-2026-03-08T12:04:00Z ERROR goroutine scheduler: all threads busy, 1024/1024 goroutines blocked
-2026-03-08T12:04:30Z ERROR http: failed to execute handler: context deadline exceeded after 5s
-2026-03-08T12:05:01Z WARN  CPU throttling detected: container cgroup limit reached 0.5 cores
+Could not fetch logs

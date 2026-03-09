@@ -1,5 +1,48 @@
-LAST SEEN   TYPE     REASON              OBJECT                              MESSAGE
-5m          Normal   Scheduled           pod/target-app-7d6c9f8b5d-kx3j2    Successfully assigned default/target-app
-5m          Normal   Started             pod/target-app-7d6c9f8b5d-kx3j2    Started container target-app
-2m          Warning  CPUThrottling       pod/target-app-7d6c9f8b5d-kx3j2    CPU throttling: 87% throttled cpu seconds
-1m          Warning  OOMKilling          node/ip-10-0-1-7                    System OOM encountered, victim process: stress, pid=12341
+LAST SEEN   TYPE      REASON                    OBJECT                             MESSAGE
+8m16s       Normal    Starting                  node/ip-10-0-1-138.ec2.internal    
+8m17s       Normal    Starting                  node/ip-10-0-2-48.ec2.internal     
+8m24s       Normal    NodeHasSufficientPID      node/ip-10-0-1-138.ec2.internal    Node ip-10-0-1-138.ec2.internal status is now: NodeHasSufficientPID
+8m24s       Normal    NodeHasSufficientMemory   node/ip-10-0-2-48.ec2.internal     Node ip-10-0-2-48.ec2.internal status is now: NodeHasSufficientMemory
+8m24s       Normal    NodeAllocatableEnforced   node/ip-10-0-2-48.ec2.internal     Updated Node Allocatable limit across pods
+8m24s       Normal    NodeAllocatableEnforced   node/ip-10-0-1-138.ec2.internal    Updated Node Allocatable limit across pods
+8m24s       Normal    NodeHasSufficientPID      node/ip-10-0-2-48.ec2.internal     Node ip-10-0-2-48.ec2.internal status is now: NodeHasSufficientPID
+8m24s       Normal    Starting                  node/ip-10-0-1-138.ec2.internal    Starting kubelet.
+8m24s       Normal    NodeHasSufficientMemory   node/ip-10-0-1-138.ec2.internal    Node ip-10-0-1-138.ec2.internal status is now: NodeHasSufficientMemory
+8m24s       Warning   InvalidDiskCapacity       node/ip-10-0-1-138.ec2.internal    invalid capacity 0 on image filesystem
+8m24s       Normal    Starting                  node/ip-10-0-2-48.ec2.internal     Starting kubelet.
+8m24s       Warning   InvalidDiskCapacity       node/ip-10-0-2-48.ec2.internal     invalid capacity 0 on image filesystem
+8m24s       Normal    NodeHasNoDiskPressure     node/ip-10-0-1-138.ec2.internal    Node ip-10-0-1-138.ec2.internal status is now: NodeHasNoDiskPressure
+8m24s       Normal    NodeHasNoDiskPressure     node/ip-10-0-2-48.ec2.internal     Node ip-10-0-2-48.ec2.internal status is now: NodeHasNoDiskPressure
+8m23s       Normal    Synced                    node/ip-10-0-1-138.ec2.internal    Node synced successfully
+8m23s       Normal    Synced                    node/ip-10-0-2-48.ec2.internal     Node synced successfully
+8m19s       Normal    RegisteredNode            node/ip-10-0-1-138.ec2.internal    Node ip-10-0-1-138.ec2.internal event: Registered Node ip-10-0-1-138.ec2.internal in Controller
+8m19s       Normal    RegisteredNode            node/ip-10-0-2-48.ec2.internal     Node ip-10-0-2-48.ec2.internal event: Registered Node ip-10-0-2-48.ec2.internal in Controller
+8m11s       Normal    NodeReady                 node/ip-10-0-2-48.ec2.internal     Node ip-10-0-2-48.ec2.internal status is now: NodeReady
+8m10s       Normal    NodeReady                 node/ip-10-0-1-138.ec2.internal    Node ip-10-0-1-138.ec2.internal status is now: NodeReady
+6m2s        Normal    ScalingReplicaSet         deployment/target-app              Scaled up replica set target-app-6bdb79f679 to 2
+6m2s        Normal    SuccessfulCreate          replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-ttgw4
+6m2s        Normal    Scheduled                 pod/target-app-6bdb79f679-hl74m    Successfully assigned default/target-app-6bdb79f679-hl74m to ip-10-0-1-138.ec2.internal
+6m2s        Normal    SuccessfulCreate          replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-hl74m
+6m2s        Normal    Scheduled                 pod/target-app-6bdb79f679-ttgw4    Successfully assigned default/target-app-6bdb79f679-ttgw4 to ip-10-0-2-48.ec2.internal
+6m1s        Normal    Pulling                   pod/target-app-6bdb79f679-hl74m    Pulling image "nginx:1.25"
+6m1s        Normal    Pulling                   pod/target-app-6bdb79f679-ttgw4    Pulling image "nginx:1.25"
+5m58s       Normal    Pulled                    pod/target-app-6bdb79f679-ttgw4    Successfully pulled image "nginx:1.25" in 3.254s (3.254s including waiting)
+5m58s       Normal    Created                   pod/target-app-6bdb79f679-ttgw4    Created container: target-app
+5m58s       Normal    Started                   pod/target-app-6bdb79f679-ttgw4    Started container target-app
+5m57s       Normal    Pulled                    pod/target-app-6bdb79f679-hl74m    Successfully pulled image "nginx:1.25" in 3.917s (3.917s including waiting)
+5m57s       Normal    Started                   pod/target-app-6bdb79f679-hl74m    Started container target-app
+5m57s       Normal    Created                   pod/target-app-6bdb79f679-hl74m    Created container: target-app
+5m32s       Normal    Killing                   pod/target-app-6bdb79f679-ttgw4    Stopping container target-app
+5m31s       Normal    Scheduled                 pod/target-app-6bdb79f679-tzd7p    Successfully assigned default/target-app-6bdb79f679-tzd7p to ip-10-0-2-48.ec2.internal
+5m31s       Normal    Pulled                    pod/target-app-6bdb79f679-tzd7p    Container image "nginx:1.25" already present on machine
+5m31s       Normal    Created                   pod/target-app-6bdb79f679-tzd7p    Created container: target-app
+5m31s       Normal    SuccessfulCreate          replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-tzd7p
+5m30s       Normal    Started                   pod/target-app-6bdb79f679-tzd7p    Started container target-app
+99s         Normal    Scheduled                 pod/target-app-f6db4c6b6-xwt7j     Successfully assigned default/target-app-f6db4c6b6-xwt7j to ip-10-0-1-138.ec2.internal
+99s         Normal    ScalingReplicaSet         deployment/target-app              Scaled up replica set target-app-f6db4c6b6 to 1
+99s         Normal    SuccessfulCreate          replicaset/target-app-f6db4c6b6    Created pod: target-app-f6db4c6b6-xwt7j
+16s         Warning   Failed                    pod/target-app-f6db4c6b6-xwt7j     Error: ImagePullBackOff
+16s         Normal    BackOff                   pod/target-app-f6db4c6b6-xwt7j     Back-off pulling image "nginx:this-tag-is-fake-123"
+3s          Warning   Failed                    pod/target-app-f6db4c6b6-xwt7j     Error: ErrImagePull
+3s          Warning   Failed                    pod/target-app-f6db4c6b6-xwt7j     Failed to pull image "nginx:this-tag-is-fake-123": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/nginx:this-tag-is-fake-123": failed to resolve reference "docker.io/library/nginx:this-tag-is-fake-123": docker.io/library/nginx:this-tag-is-fake-123: not found
+3s          Normal    Pulling                   pod/target-app-f6db4c6b6-xwt7j     Pulling image "nginx:this-tag-is-fake-123"

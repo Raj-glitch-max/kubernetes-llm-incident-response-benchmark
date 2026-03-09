@@ -1,0 +1,6 @@
+{
+  "incident_id": "INC-006",
+  "timestamp": "2026-03-09T05:14:06Z",
+  "chaos_type": "cpu_stress",
+  "ground_truth_category": "HighCpuUsage"
+}

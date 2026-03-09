@@ -7,11 +7,13 @@
 /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
 /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
 /docker-entrypoint.sh: Configuration complete; ready for start up
-2026/03/09 04:31:15 [notice] 1#1: using the "epoll" event method
-2026/03/09 04:31:15 [notice] 1#1: nginx/1.25.5
-2026/03/09 04:31:15 [notice] 1#1: built by gcc 12.2.0 (Debian 12.2.0-14) 
-2026/03/09 04:31:15 [notice] 1#1: OS: Linux 5.10.245-245.983.amzn2.x86_64
-2026/03/09 04:31:15 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
-2026/03/09 04:31:15 [notice] 1#1: start worker processes
-2026/03/09 04:31:15 [notice] 1#1: start worker process 29
-2026/03/09 04:31:15 [notice] 1#1: start worker process 30
+2026/03/09 04:42:55 [notice] 1#1: using the "epoll" event method
+2026/03/09 04:42:55 [notice] 1#1: nginx/1.25.5
+2026/03/09 04:42:55 [notice] 1#1: built by gcc 12.2.0 (Debian 12.2.0-14) 
+2026/03/09 04:42:55 [notice] 1#1: OS: Linux 5.10.245-245.983.amzn2.x86_64
+2026/03/09 04:42:55 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2026/03/09 04:42:55 [notice] 1#1: start worker processes
+2026/03/09 04:42:55 [notice] 1#1: start worker process 29
+2026/03/09 04:42:55 [notice] 1#1: start worker process 30
+2026/03/09 05:17:41 [notice] 1#1: signal 17 (SIGCHLD) received from 44
+2026/03/09 05:17:41 [notice] 1#1: unknown process 44 exited with code 127

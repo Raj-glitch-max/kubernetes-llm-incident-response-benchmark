@@ -1,5 +1,48 @@
-LAST SEEN   TYPE      REASON     OBJECT                                 MESSAGE
-10m         Normal    Scheduled  pod/target-app-7d6c9f8b5d-n2mp1       Successfully assigned default/target-app
-9m          Normal    Started    pod/target-app-7d6c9f8b5d-n2mp1       Started container target-app
-3m          Warning   Unhealthy  pod/target-app-7d6c9f8b5d-n2mp1       Readiness probe failed: HTTP probe failed with statuscode: 503
-1m          Warning   Unhealthy  pod/target-app-7d6c9f8b5d-n2mp1       Liveness probe failed: Get "http://10.0.1.22:8080/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+LAST SEEN   TYPE      REASON                    OBJECT                             MESSAGE
+6m40s       Normal    Starting                  node/ip-10-0-1-138.ec2.internal    
+6m41s       Normal    Starting                  node/ip-10-0-2-48.ec2.internal     
+6m48s       Normal    NodeHasSufficientPID      node/ip-10-0-1-138.ec2.internal    Node ip-10-0-1-138.ec2.internal status is now: NodeHasSufficientPID
+6m48s       Normal    NodeHasSufficientMemory   node/ip-10-0-2-48.ec2.internal     Node ip-10-0-2-48.ec2.internal status is now: NodeHasSufficientMemory
+6m48s       Normal    NodeAllocatableEnforced   node/ip-10-0-2-48.ec2.internal     Updated Node Allocatable limit across pods
+6m48s       Normal    NodeAllocatableEnforced   node/ip-10-0-1-138.ec2.internal    Updated Node Allocatable limit across pods
+6m48s       Normal    NodeHasSufficientPID      node/ip-10-0-2-48.ec2.internal     Node ip-10-0-2-48.ec2.internal status is now: NodeHasSufficientPID
+6m48s       Normal    Starting                  node/ip-10-0-1-138.ec2.internal    Starting kubelet.
+6m48s       Normal    NodeHasSufficientMemory   node/ip-10-0-1-138.ec2.internal    Node ip-10-0-1-138.ec2.internal status is now: NodeHasSufficientMemory
+6m48s       Warning   InvalidDiskCapacity       node/ip-10-0-1-138.ec2.internal    invalid capacity 0 on image filesystem
+6m48s       Normal    Starting                  node/ip-10-0-2-48.ec2.internal     Starting kubelet.
+6m48s       Warning   InvalidDiskCapacity       node/ip-10-0-2-48.ec2.internal     invalid capacity 0 on image filesystem
+6m48s       Normal    NodeHasNoDiskPressure     node/ip-10-0-1-138.ec2.internal    Node ip-10-0-1-138.ec2.internal status is now: NodeHasNoDiskPressure
+6m48s       Normal    NodeHasNoDiskPressure     node/ip-10-0-2-48.ec2.internal     Node ip-10-0-2-48.ec2.internal status is now: NodeHasNoDiskPressure
+6m47s       Normal    Synced                    node/ip-10-0-1-138.ec2.internal    Node synced successfully
+6m47s       Normal    Synced                    node/ip-10-0-2-48.ec2.internal     Node synced successfully
+6m43s       Normal    RegisteredNode            node/ip-10-0-1-138.ec2.internal    Node ip-10-0-1-138.ec2.internal event: Registered Node ip-10-0-1-138.ec2.internal in Controller
+6m43s       Normal    RegisteredNode            node/ip-10-0-2-48.ec2.internal     Node ip-10-0-2-48.ec2.internal event: Registered Node ip-10-0-2-48.ec2.internal in Controller
+6m35s       Normal    NodeReady                 node/ip-10-0-2-48.ec2.internal     Node ip-10-0-2-48.ec2.internal status is now: NodeReady
+6m34s       Normal    NodeReady                 node/ip-10-0-1-138.ec2.internal    Node ip-10-0-1-138.ec2.internal status is now: NodeReady
+4m26s       Normal    ScalingReplicaSet         deployment/target-app              Scaled up replica set target-app-6bdb79f679 to 2
+4m26s       Normal    SuccessfulCreate          replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-ttgw4
+4m26s       Normal    Scheduled                 pod/target-app-6bdb79f679-hl74m    Successfully assigned default/target-app-6bdb79f679-hl74m to ip-10-0-1-138.ec2.internal
+4m26s       Normal    SuccessfulCreate          replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-hl74m
+4m26s       Normal    Scheduled                 pod/target-app-6bdb79f679-ttgw4    Successfully assigned default/target-app-6bdb79f679-ttgw4 to ip-10-0-2-48.ec2.internal
+4m25s       Normal    Pulling                   pod/target-app-6bdb79f679-hl74m    Pulling image "nginx:1.25"
+4m25s       Normal    Pulling                   pod/target-app-6bdb79f679-ttgw4    Pulling image "nginx:1.25"
+4m22s       Normal    Pulled                    pod/target-app-6bdb79f679-ttgw4    Successfully pulled image "nginx:1.25" in 3.254s (3.254s including waiting)
+4m22s       Normal    Created                   pod/target-app-6bdb79f679-ttgw4    Created container: target-app
+4m22s       Normal    Started                   pod/target-app-6bdb79f679-ttgw4    Started container target-app
+4m21s       Normal    Pulled                    pod/target-app-6bdb79f679-hl74m    Successfully pulled image "nginx:1.25" in 3.917s (3.917s including waiting)
+4m21s       Normal    Started                   pod/target-app-6bdb79f679-hl74m    Started container target-app
+4m21s       Normal    Created                   pod/target-app-6bdb79f679-hl74m    Created container: target-app
+3m56s       Normal    Killing                   pod/target-app-6bdb79f679-ttgw4    Stopping container target-app
+3m55s       Normal    Scheduled                 pod/target-app-6bdb79f679-tzd7p    Successfully assigned default/target-app-6bdb79f679-tzd7p to ip-10-0-2-48.ec2.internal
+3m55s       Normal    Pulled                    pod/target-app-6bdb79f679-tzd7p    Container image "nginx:1.25" already present on machine
+3m55s       Normal    Created                   pod/target-app-6bdb79f679-tzd7p    Created container: target-app
+3m55s       Normal    SuccessfulCreate          replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-tzd7p
+3m54s       Normal    Started                   pod/target-app-6bdb79f679-tzd7p    Started container target-app
+3s          Normal    Pulling                   pod/target-app-f6db4c6b6-xwt7j     Pulling image "nginx:this-tag-is-fake-123"
+3s          Warning   Failed                    pod/target-app-f6db4c6b6-xwt7j     Failed to pull image "nginx:this-tag-is-fake-123": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/nginx:this-tag-is-fake-123": failed to resolve reference "docker.io/library/nginx:this-tag-is-fake-123": docker.io/library/nginx:this-tag-is-fake-123: not found
+3s          Warning   Failed                    pod/target-app-f6db4c6b6-xwt7j     Error: ErrImagePull
+3s          Normal    SuccessfulCreate          replicaset/target-app-f6db4c6b6    Created pod: target-app-f6db4c6b6-xwt7j
+3s          Normal    Scheduled                 pod/target-app-f6db4c6b6-xwt7j     Successfully assigned default/target-app-f6db4c6b6-xwt7j to ip-10-0-1-138.ec2.internal
+3s          Normal    ScalingReplicaSet         deployment/target-app              Scaled up replica set target-app-f6db4c6b6 to 1
+2s          Normal    BackOff                   pod/target-app-f6db4c6b6-xwt7j     Back-off pulling image "nginx:this-tag-is-fake-123"
+2s          Warning   Failed                    pod/target-app-f6db4c6b6-xwt7j     Error: ImagePullBackOff

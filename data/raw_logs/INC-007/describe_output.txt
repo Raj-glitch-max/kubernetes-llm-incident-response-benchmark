@@ -1,26 +1,26 @@
-Name:             target-app-6bdb79f679-v776j
+Name:             target-app-6bdb79f679-v58zf
 Namespace:        default
 Priority:         0
 Service Account:  default
-Node:             ip-10-0-1-138.ec2.internal/10.0.1.138
-Start Time:       Mon, 09 Mar 2026 10:01:14 +0530
+Node:             ip-10-0-2-48.ec2.internal/10.0.2.48
+Start Time:       Mon, 09 Mar 2026 10:12:54 +0530
 Labels:           app=target-app
                   pod-template-hash=6bdb79f679
 Annotations:      <none>
 Status:           Running
-IP:               10.0.1.147
+IP:               10.0.2.246
 IPs:
-  IP:           10.0.1.147
+  IP:           10.0.2.246
 Controlled By:  ReplicaSet/target-app-6bdb79f679
 Containers:
   target-app:
-    Container ID:   containerd://fc54c6c5ad17ef51de3c07a326b82b06886a7711cd397bb4d4676152c8df1ef3
+    Container ID:   containerd://dcb5aae21a69a16c96b198e22bc630cb2c0578c5e35ea56916a2ba3f179ac9ef
     Image:          nginx:1.25
     Image ID:       docker.io/library/nginx@sha256:a484819eb60211f5299034ac80f6a681b06f89e65866ce91f356ed7c72af059c
     Port:           80/TCP
     Host Port:      0/TCP
     State:          Running
-      Started:      Mon, 09 Mar 2026 10:01:14 +0530
+      Started:      Mon, 09 Mar 2026 10:12:55 +0530
     Ready:          True
     Restart Count:  0
     Limits:
@@ -31,7 +31,7 @@ Containers:
       memory:     64Mi
     Environment:  <none>
     Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-r22nj (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-cw4cr (ro)
 Conditions:
   Type                        Status
   PodReadyToStartContainers   True 
@@ -40,7 +40,7 @@ Conditions:
   ContainersReady             True 
   PodScheduled                True 
 Volumes:
-  kube-api-access-r22nj:
+  kube-api-access-cw4cr:
     Type:                    Projected (a volume that contains injected data from multiple sources)
     TokenExpirationSeconds:  3607
     ConfigMapName:           kube-root-ca.crt
@@ -53,7 +53,7 @@ Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists fo
 Events:
   Type    Reason     Age   From               Message
   ----    ------     ----  ----               -------
-  Normal  Scheduled  17s   default-scheduler  Successfully assigned default/target-app-6bdb79f679-v776j to ip-10-0-1-138.ec2.internal
-  Normal  Pulled     17s   kubelet            Container image "nginx:1.25" already present on machine
-  Normal  Created    17s   kubelet            Created container: target-app
-  Normal  Started    17s   kubelet            Started container target-app
+  Normal  Scheduled  35m   default-scheduler  Successfully assigned default/target-app-6bdb79f679-v58zf to ip-10-0-2-48.ec2.internal
+  Normal  Pulled     35m   kubelet            Container image "nginx:1.25" already present on machine
+  Normal  Created    35m   kubelet            Created container: target-app
+  Normal  Started    35m   kubelet            Started container target-app

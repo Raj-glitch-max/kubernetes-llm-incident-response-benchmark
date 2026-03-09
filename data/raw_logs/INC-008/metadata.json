@@ -1,0 +1,6 @@
+{
+  "incident_id": "INC-008",
+  "timestamp": "2026-03-09T05:19:13Z",
+  "chaos_type": "crash_loop",
+  "ground_truth_category": "PodCrashLooping"
+}

@@ -1,70 +1,119 @@
 import re
+import subprocess
+
 
 def score_rca_accuracy(llm_category: str, ground_truth: str) -> bool:
     """
-    Compares LLM category to ground truth to determine RCA accuracy.
-    
-    Args:
-        llm_category (str): Category predicted by the LLM.
-        ground_truth (str): The actual category from chaos metadata.
-        
-    Returns:
-        bool: True if categories match exactly.
+    Exact match of LLM predicted category against ground truth.
+    Returns True if they match (case-insensitive).
     """
     return llm_category.strip().lower() == ground_truth.strip().lower()
 
+
 def score_hallucination(llm_evidence: list, input_data: dict) -> float:
     """
-    Checks if the LLM cited something that was not present in the input logs/events.
-    
-    Args:
-        llm_evidence (list): The list of citations from the LLM output.
-        input_data (dict): The original input (pod_logs, describe_output, etc.).
-        
-    Returns:
-        float: A hallucination penalty score (0.0 means perfect, 1.0 means full hallucination).
+    Binary hallucination penalty: fraction of cited evidence that does NOT appear
+    verbatim anywhere in the raw input logs.
+
+    Returns float in [0.0, 1.0]:
+      - 0.0 = all evidence grounded in actual logs (no hallucination)
+      - 1.0 = all evidence fabricated
     """
     if not llm_evidence:
         return 0.0
-    
-    # Combine all input text into one massive haystack
+
     haystack = " ".join(str(v) for v in input_data.values()).lower()
-    
-    hallucinated_count = 0
-    for evidence in llm_evidence:
-        # Simple substring search. In a real scenario, this might need fuzzy matching
-        # if the LLM paraphrases the evidence slightly.
-        if evidence.lower() not in haystack:
-            hallucinated_count += 1
-            
-    return float(hallucinated_count) / len(llm_evidence)
+
+    hallucinated = sum(
+        1 for e in llm_evidence if e.lower() not in haystack
+    )
+    return float(hallucinated) / len(llm_evidence)
+
+
+def score_log_faithfulness(llm_evidence: list, input_data: dict) -> float:
+    """
+    Log-Faithfulness Score — academic gap metric.
+
+    Measures the fraction of LLM-cited evidence items that can be verified
+    as appearing in the raw logs (substring match, case-insensitive).
+
+    Unlike the binary hallucination penalty, this is a positive quality
+    score: 1.0 = all evidence is genuinely grounded in the input.
+
+    Returns float in [0.0, 1.0].
+    """
+    if not llm_evidence:
+        return 1.0  # No claims made → perfectly faithful (no hallucination)
+
+    haystack = " ".join(str(v) for v in input_data.values()).lower()
+
+    faithful = sum(
+        1 for e in llm_evidence if e.lower() in haystack
+    )
+    return float(faithful) / len(llm_evidence)
+
+
+def score_command_executability(suggested_commands: list) -> float:
+    """
+    Command Executability Score — academic gap metric.
+
+    Dry-runs each kubectl command against the live cluster using
+    `kubectl <args> --dry-run=client -o yaml`.
+    Returns the fraction of commands that pass dry-run validation.
+
+    - 1.0 = all suggested commands are syntactically valid kubectl
+    - 0.0 = all suggested commands fail or are not kubectl commands
+    - Returns 0.0 gracefully if kubectl is unavailable.
+
+    Note: only kubectl commands are validated; helm/aws commands return 0.5
+    (partial credit — not invalid but not verifiable locally).
+    """
+    if not suggested_commands:
+        return 0.0
+
+    passed = 0
+    for cmd in suggested_commands:
+        cmd_stripped = cmd.strip()
+        if not cmd_stripped:
+            continue
+
+        if cmd_stripped.lower().startswith("kubectl"):
+            # Parse the kubectl subcommand and args, inject --dry-run=client
+            parts = cmd_stripped.split()
+            # Insert --dry-run=client before any -o flag or at end
+            if "--dry-run" not in cmd_stripped:
+                parts.append("--dry-run=client")
+            try:
+                result = subprocess.run(
+                    parts,
+                    capture_output=True,
+                    timeout=10
+                )
+                if result.returncode == 0:
+                    passed += 1
+            except (subprocess.TimeoutExpired, FileNotFoundError):
+                pass  # kubectl not available or timed out
+        elif cmd_stripped.lower().startswith(("helm", "aws")):
+            # Partial credit — valid category but not dry-runnable
+            passed += 0.5
+
+    return min(1.0, passed / len(suggested_commands))
+
 
 def score_latency(start_time: float, end_time: float) -> float:
-    """
-    Records and scores the response time of the LLM call.
-    
-    Args:
-        start_time (float): The Unix timestamp right before the API call.
-        end_time (float): The Unix timestamp right after the API returns.
-        
-    Returns:
-        float: Total elapsed time in seconds.
-    """
+    """Records total elapsed time in seconds for the LLM call."""
     return end_time - start_time
+
 
 def score_remediation(suggested_commands: list) -> bool:
     """
-    Checks if the suggested commands are valid, non-destructive kubectl commands.
-    
-    Args:
-        suggested_commands (list): List of shell/kubectl commands suggested by the LLM.
-        
-    Returns:
-        bool: True if commands are safe and syntactically valid.
+    Safety check: ensures commands are valid kubectl/helm/aws commands
+    that don't contain destructive patterns.
+    Returns True if all commands are safe.
     """
     if not suggested_commands:
         return False
-        
+
     destructive_patterns = [
         r"rm\s+-rf",
         r"delete\s+namespace",
@@ -72,22 +121,15 @@ def score_remediation(suggested_commands: list) -> bool:
         r"kubectl\s+delete\s+cluster",
         r">\s*/dev/null"
     ]
-    
-    is_valid = True
+
     for cmd in suggested_commands:
         cmd_lower = cmd.lower().strip()
-        # Must be a kubectl or related diagnostic command
-        if not (cmd_lower.startswith("kubectl") or cmd_lower.startswith("helm") or cmd_lower.startswith("aws eks")):
-            is_valid = False
-            break
-            
-        # Must not contain destructive payload
+        if not (cmd_lower.startswith("kubectl") or
+                cmd_lower.startswith("helm") or
+                cmd_lower.startswith("aws eks")):
+            return False
         for pattern in destructive_patterns:
             if re.search(pattern, cmd_lower):
-                is_valid = False
-                break
-                
-        if not is_valid:
-            break
-            
-    return is_valid
+                return False
+
+    return True

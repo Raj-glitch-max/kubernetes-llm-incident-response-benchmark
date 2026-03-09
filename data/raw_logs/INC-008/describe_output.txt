@@ -1,16 +1,16 @@
-Name:             target-app-f6db4c6b6-xwt7j
+Name:             target-app-f6db4c6b6-z7pbl
 Namespace:        default
 Priority:         0
 Service Account:  default
 Node:             ip-10-0-1-138.ec2.internal/10.0.1.138
-Start Time:       Mon, 09 Mar 2026 09:57:23 +0530
+Start Time:       Mon, 09 Mar 2026 10:49:13 +0530
 Labels:           app=target-app
                   pod-template-hash=f6db4c6b6
 Annotations:      <none>
 Status:           Pending
-IP:               10.0.1.44
+IP:               10.0.1.13
 IPs:
-  IP:           10.0.1.44
+  IP:           10.0.1.13
 Controlled By:  ReplicaSet/target-app-f6db4c6b6
 Containers:
   target-app:
@@ -20,7 +20,7 @@ Containers:
     Port:           80/TCP
     Host Port:      0/TCP
     State:          Waiting
-      Reason:       ErrImagePull
+      Reason:       ImagePullBackOff
     Ready:          False
     Restart Count:  0
     Limits:
@@ -31,7 +31,7 @@ Containers:
       memory:     64Mi
     Environment:  <none>
     Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-lvppw (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-jkrpf (ro)
 Conditions:
   Type                        Status
   PodReadyToStartContainers   True 
@@ -40,7 +40,7 @@ Conditions:
   ContainersReady             False 
   PodScheduled                True 
 Volumes:
-  kube-api-access-lvppw:
+  kube-api-access-jkrpf:
     Type:                    Projected (a volume that contains injected data from multiple sources)
     TokenExpirationSeconds:  3607
     ConfigMapName:           kube-root-ca.crt
@@ -51,11 +51,11 @@ Node-Selectors:              <none>
 Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
                              node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
 Events:
-  Type     Reason     Age   From               Message
-  ----     ------     ----  ----               -------
-  Normal   Scheduled  10s   default-scheduler  Successfully assigned default/target-app-f6db4c6b6-xwt7j to ip-10-0-1-138.ec2.internal
-  Normal   Pulling    10s   kubelet            Pulling image "nginx:this-tag-is-fake-123"
-  Warning  Failed     10s   kubelet            Failed to pull image "nginx:this-tag-is-fake-123": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/nginx:this-tag-is-fake-123": failed to resolve reference "docker.io/library/nginx:this-tag-is-fake-123": docker.io/library/nginx:this-tag-is-fake-123: not found
-  Warning  Failed     10s   kubelet            Error: ErrImagePull
-  Normal   BackOff    9s    kubelet            Back-off pulling image "nginx:this-tag-is-fake-123"
-  Warning  Failed     9s    kubelet            Error: ImagePullBackOff
+  Type     Reason     Age               From               Message
+  ----     ------     ----              ----               -------
+  Normal   Scheduled  15s               default-scheduler  Successfully assigned default/target-app-f6db4c6b6-z7pbl to ip-10-0-1-138.ec2.internal
+  Normal   BackOff    14s               kubelet            Back-off pulling image "nginx:this-tag-is-fake-123"
+  Warning  Failed     14s               kubelet            Error: ImagePullBackOff
+  Normal   Pulling    2s (x2 over 15s)  kubelet            Pulling image "nginx:this-tag-is-fake-123"
+  Warning  Failed     2s (x2 over 15s)  kubelet            Failed to pull image "nginx:this-tag-is-fake-123": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/nginx:this-tag-is-fake-123": failed to resolve reference "docker.io/library/nginx:this-tag-is-fake-123": docker.io/library/nginx:this-tag-is-fake-123: not found
+  Warning  Failed     2s (x2 over 15s)  kubelet            Error: ErrImagePull

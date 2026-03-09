@@ -15,3 +15,9 @@
 2026/03/09 04:42:55 [notice] 1#1: start worker processes
 2026/03/09 04:42:55 [notice] 1#1: start worker process 29
 2026/03/09 04:42:55 [notice] 1#1: start worker process 30
+2026/03/09 05:17:41 [notice] 1#1: signal 17 (SIGCHLD) received from 44
+2026/03/09 05:17:41 [notice] 1#1: unknown process 44 exited with code 127
+2026/03/09 05:20:54 [notice] 1#1: signal 17 (SIGCHLD) received from 57
+2026/03/09 05:20:54 [alert] 1#1: unknown process 57 exited on signal 13
+2026/03/09 05:20:54 [notice] 1#1: signal 17 (SIGCHLD) received from 58
+2026/03/09 05:20:54 [notice] 1#1: unknown process 58 exited with code 0

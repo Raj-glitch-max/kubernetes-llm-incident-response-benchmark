@@ -1,0 +1,6 @@
+{
+  "incident_id": "INC-007",
+  "timestamp": "2026-03-09T05:18:36Z",
+  "chaos_type": "memory_hog",
+  "ground_truth_category": "MemoryPressure"
+}

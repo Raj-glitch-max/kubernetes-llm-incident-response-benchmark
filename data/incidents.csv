@@ -22,23 +22,11 @@ INC-005,mistralai/mistral-7b-instruct-v0.3,7.7,1,0.0,1.0,0.0,1,0.9,The root caus
 INC-000,z-ai/glm4.7,82.71,1,0.67,0.33,0.0,1,1.0,"The application container is crashing due to a runtime panic caused by an invalid memory address or nil pointer dereference. This occurs after a database connection error, causing the process to exit with code 2 and enter a CrashLoopBackOff state."
 INC-000,z-ai/glm4.7,72.6,1,0.0,1.0,0.0,1,1.0,The application container is terminating unexpectedly because the application process panics with a runtime error (invalid memory address or nil pointer dereference). This occurs after the application logs a loss of connection to the backend database. The repeated failure to start and keep running results in the pod entering a CrashLoopBackOff state.
 INC-002,z-ai/glm4.7,95.49,1,0.0,1.0,0.5,1,1.0,"The pod is unable to start because the container image specified in the deployment manifest, 'nginx:this-tag-is-fake-123', does not exist in the container registry. This results in an ImagePullBackOff state."
-INC-000,gpt-4-turbo,2.45,1,0.0,1.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-001,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-002,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-003,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-004,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-005,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
 INC-011,meta/llama-3.1-70b-instruct,2.55,1,1.0,0.0,0.0,1,0.8,"The pod is experiencing a crash looping issue due to an invalid disk capacity on the node, which is causing the container to fail and restart continuously."
 INC-011,mistralai/mistral-7b-instruct-v0.3,7.08,1,0.0,1.0,0.0,1,0.9,"The root cause of the failure is the execution of scripts in the /docker-entrypoint.d directory during container startup. Specifically, the script 10-listen-on-ipv6-by-default.sh is causing the issue by modifying the nginx configuration, which may lead to an infinite loop or unexpected behavior, causing the container to crash."
 INC-003,z-ai/glm4.7,236.81,1,0.0,1.0,0.5,1,1.0,"The pod is stuck in an ImagePullBackOff state because the container image specified in the deployment, 'nginx:this-tag-is-fake-123', does not exist in the container registry. The kubelet is unable to pull the image, receiving a 'NotFound' error."
 INC-012,meta/llama-3.1-70b-instruct,3.19,0,0.0,1.0,0.0,1,0.9,"The pod was killed due to an out-of-memory (OOM) error. The evidence suggests that the container was using too much memory, causing the system to terminate it."
 INC-012,mistralai/mistral-7b-instruct-v0.3,6.8,0,0.0,1.0,0.0,1,0.9,"The root cause of the incident is the SIGCHLD signal received by the nginx process, which indicates a child process has terminated. The terminated process (with ID 50) was unknown, and this could be due to an error or misconfiguration in the nginx configuration, leading to the pod being terminated."
-INC-000,gpt-4-turbo,2.45,1,0.0,1.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-001,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-002,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-003,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-004,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-005,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
 INC-013,meta/llama-3.1-70b-instruct,5.81,1,1.0,0.0,0.0,1,0.8,The target-app pods are experiencing a NetworkFailure due to a network partition caused by a chaos experiment.
 INC-013,mistralai/mistral-7b-instruct-v0.3,6.65,1,0.0,1.0,0.0,1,0.9,"The root cause is a network issue causing the Nginx process with ID 50 to exit on signal 13 (SIGPIPE). This could be due to the loss of connection between the Nginx container and the network, potentially caused by the network partitioning incident."
 INC-014,meta/llama-3.1-70b-instruct,3.44,1,1.0,0.0,0.0,1,0.99,The pod is unable to pull the image 'nginx:this-tag-is-fake-123' due to a 'NotFound' error. This is causing the pod to enter a crash loop.
@@ -46,9 +34,3 @@ INC-014,mistralai/mistral-7b-instruct-v0.3,7.65,1,1.0,0.0,0.0,1,1.0,The root cau
 INC-014,z-ai/glm4.7,152.83,1,0.0,1.0,0.5,1,1.0,"The pod is unable to start because the container image specified in the deployment configuration does not exist in the container registry. The kubelet attempted to pull image 'nginx:this-tag-is-fake-123' but received a 'NotFound' error, causing the pod to enter the ImagePullBackOff state."
 INC-015,meta/llama-3.1-70b-instruct,5.89,0,1.0,0.0,0.0,1,0.6,"The root cause of the MemoryPressure alert is not directly related to the provided pod logs or describe output. However, the events suggest that there was an attempt to pull a non-existent image 'nginx:this-tag-is-fake-123' which led to a series of errors and pod restarts. This could have potentially led to increased memory usage, triggering the MemoryPressure alert."
 INC-015,mistralai/mistral-7b-instruct-v0.3,5.19,1,1.0,0.0,0.0,1,0.9,"The root cause of the incident is a memory pressure due to the execution of a script in the Docker entrypoint of the nginx container, which is consuming excessive resources."
-INC-000,gpt-4-turbo,2.45,1,0.0,0.5,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-001,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-002,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-003,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-004,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.
-INC-005,gpt-4-turbo,2.45,1,1.0,0.0,0.0,1,0.95,[MOCK] Pod is crash looping due to runtime panic in app container.

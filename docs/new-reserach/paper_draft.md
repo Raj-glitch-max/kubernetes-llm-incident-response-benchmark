@@ -29,7 +29,11 @@ deterministic faithfulness metric that avoids the circular evaluation risk of
 LLM-judged approaches (e.g. RAGAS). We further propose the P1 Severity Risk Rate
 as a safety-oriented benchmark metric, and show that a frontier-open ensemble
 with evidence validation achieves 0 % P1 severity risk while a single open-source
-confidence gate reaches 83.3 %. The benchmark, dataset, evaluation code, and
+confidence gate reaches 83.3 %. 
+
+Via a controlled ablation experiment (4 telemetry conditions), we demonstrate that open-source models achieve equivalent accuracy with metadata-only input as with full telemetry — providing causal evidence that diagnosis occurs via prior retrieval, not log reasoning. A base vs instruct comparison further reveals that RLHF amplifies confidence (+0.25) without altering grounding behavior, identifying training data composition as the primary intervention target.
+
+The benchmark, dataset, evaluation code, and
 Kind-reproducible infrastructure are released at [URL].
 
 ---

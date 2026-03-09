@@ -1,0 +1,3 @@
+incident_id,model,token_position,token_text,token_type,ig_score,normalized_pct
+med,distilgpt2,1,Metadata,metadata,0.5119,51.19
+med,distilgpt2,2,Logs,evidence,0.4881,48.81

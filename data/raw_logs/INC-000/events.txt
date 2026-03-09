@@ -1,4 +1,0 @@
-LAST SEEN   TYPE      REASON      OBJECT                                 MESSAGE
-12m         Normal    Scheduled   pod/target-app-5b6d7f9d8c-2kxqw        Successfully assigned default/target-app-5b6d7f9d8c-2kxqw
-12m         Normal    Pulled      pod/target-app-5b6d7f9d8c-2kxqw        Successfully pulled image "nginx:1.25"
-7m          Warning   BackOff     pod/target-app-5b6d7f9d8c-2kxqw        Back-off restarting failed container target-app in pod target-app-5b6d7f9d8c-2kxqw

@@ -19,10 +19,11 @@ NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
 # All NVIDIA NIM models supported — add any model slug here
 # Use `nvidia-llama` or `nvidia-mistral` as convenient short aliases
 NVIDIA_MODELS = {
-    "nvidia-glm47":    "z-ai/glm4.7",
-    "z-ai/glm4.7":     "z-ai/glm4.7",
-    "nvidia-llama":    "meta/llama-3.1-70b-instruct",
-    "nvidia-mistral":  "mistralai/mistral-7b-instruct-v0.3",
+    "nvidia-glm47":      "z-ai/glm4.7",
+    "z-ai/glm4.7":       "z-ai/glm4.7",
+    "nvidia-llama":      "meta/llama-3.1-70b-instruct",
+    "nvidia-mistral":    "mistralai/mistral-7b-instruct-v0.3",
+    "nvidia-gptoss20b":  "openai/gpt-oss-20b",
 }
 
 

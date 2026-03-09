@@ -2,7 +2,7 @@
 """
 Leaderboard Generator — eval/leaderboard.py
 
-Reads data/incidents.csv, groups by model, computes aggregate scores,
+Reads results/main_results.csv, groups by model, computes aggregate scores,
 and writes data/leaderboard.json + prints a markdown table to stdout.
 
 Columns handled (new + legacy):
@@ -15,7 +15,7 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-CSV_PATH = Path("data/incidents.csv")
+CSV_PATH = Path("results/main_results.csv")
 JSON_PATH = Path("data/leaderboard.json")
 
 

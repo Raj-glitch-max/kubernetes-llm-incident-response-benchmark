@@ -24,7 +24,7 @@ import argparse
 from pathlib import Path
 from collections import defaultdict
 
-CSV_PATH = Path("data/incidents.csv")
+CSV_PATH = Path("results/main_results.csv")
 
 
 def safe_float(val, default=0.0):

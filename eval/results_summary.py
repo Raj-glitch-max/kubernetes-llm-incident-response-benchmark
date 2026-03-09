@@ -8,7 +8,7 @@ try:
 except ImportError:
     HAS_PANDAS = False
 
-CSV_FILE = Path("data/incidents.csv")
+CSV_FILE = Path("results/main_results.csv")
 
 if not CSV_FILE.exists():
     print(f"❌ {CSV_FILE} not found. Run at least one `make eval` first.")

@@ -19,9 +19,9 @@ from eval.evaluate import (
     get_true_severity, get_scenario, SCENARIO_LABELS
 )
 
-SRC_CSV  = Path("data/incidents.csv")
+SRC_CSV  = Path("results/main_results.csv")
 OUT_CSV  = Path("data/k8s_rca_bench_final.csv")
-LOGS_DIR = Path("data/raw_logs")
+LOGS_DIR = Path("data/incidents")
 
 OLD_FIELDS = [
     "incident_id", "model", "latency_sec", "rca_accuracy",

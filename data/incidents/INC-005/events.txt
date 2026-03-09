@@ -1,0 +1,52 @@
+LAST SEEN   TYPE      REASON              OBJECT                             MESSAGE
+4m41s       Normal    Scheduled           pod/target-app-6bdb79f679-qb7v5    Successfully assigned default/target-app-6bdb79f679-qb7v5 to ip-10-0-1-209.ec2.internal
+2s          Normal    Scheduled           pod/target-app-6bdb79f679-l467r    Successfully assigned default/target-app-6bdb79f679-l467r to ip-10-0-1-209.ec2.internal
+12m         Normal    Scheduled           pod/target-app-6bdb79f679-vrz8h    Successfully assigned default/target-app-6bdb79f679-vrz8h to ip-10-0-1-209.ec2.internal
+13m         Normal    Scheduled           pod/target-app-6bdb79f679-wjvsh    Successfully assigned default/target-app-6bdb79f679-wjvsh to ip-10-0-1-209.ec2.internal
+6m51s       Normal    Scheduled           pod/target-app-6bdb79f679-xx69p    Successfully assigned default/target-app-6bdb79f679-xx69p to ip-10-0-2-175.ec2.internal
+10m         Normal    Scheduled           pod/target-app-6bdb79f679-l975q    Successfully assigned default/target-app-6bdb79f679-l975q to ip-10-0-1-209.ec2.internal
+8m28s       Normal    Scheduled           pod/target-app-f6db4c6b6-hgb8t     Successfully assigned default/target-app-f6db4c6b6-hgb8t to ip-10-0-1-209.ec2.internal
+13m         Normal    Scheduled           pod/target-app-f6db4c6b6-qjj9b     Successfully assigned default/target-app-f6db4c6b6-qjj9b to ip-10-0-1-209.ec2.internal
+13m         Normal    SuccessfulCreate    replicaset/target-app-f6db4c6b6    Created pod: target-app-f6db4c6b6-qjj9b
+13m         Normal    ScalingReplicaSet   deployment/target-app              Scaled up replica set target-app-f6db4c6b6 to 1 from 0
+13m         Normal    SuccessfulCreate    replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-wjvsh
+13m         Normal    Killing             pod/target-app-6bdb79f679-rlmnd    Stopping container target-app
+13m         Normal    Created             pod/target-app-6bdb79f679-wjvsh    Created container: target-app
+13m         Normal    Started             pod/target-app-6bdb79f679-wjvsh    Started container target-app
+13m         Normal    Pulled              pod/target-app-6bdb79f679-wjvsh    Container image "nginx:1.25" already present on machine
+12m         Normal    Killing             pod/target-app-6bdb79f679-wjvsh    Stopping container target-app
+12m         Normal    SuccessfulCreate    replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-vrz8h
+12m         Normal    Pulled              pod/target-app-6bdb79f679-vrz8h    Container image "nginx:1.25" already present on machine
+12m         Normal    Created             pod/target-app-6bdb79f679-vrz8h    Created container: target-app
+12m         Normal    Started             pod/target-app-6bdb79f679-vrz8h    Started container target-app
+11m         Normal    Pulling             pod/target-app-f6db4c6b6-qjj9b     Pulling image "nginx:this-tag-is-fake-123"
+11m         Warning   Failed              pod/target-app-f6db4c6b6-qjj9b     Failed to pull image "nginx:this-tag-is-fake-123": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/nginx:this-tag-is-fake-123": failed to resolve reference "docker.io/library/nginx:this-tag-is-fake-123": docker.io/library/nginx:this-tag-is-fake-123: not found
+11m         Warning   Failed              pod/target-app-f6db4c6b6-qjj9b     Error: ErrImagePull
+11m         Warning   Failed              pod/target-app-f6db4c6b6-qjj9b     Error: ImagePullBackOff
+11m         Normal    BackOff             pod/target-app-f6db4c6b6-qjj9b     Back-off pulling image "nginx:this-tag-is-fake-123"
+10m         Normal    Killing             pod/target-app-6bdb79f679-vrz8h    Stopping container target-app
+10m         Normal    SuccessfulCreate    replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-l975q
+10m         Normal    Started             pod/target-app-6bdb79f679-l975q    Started container target-app
+10m         Normal    Created             pod/target-app-6bdb79f679-l975q    Created container: target-app
+10m         Normal    Pulled              pod/target-app-6bdb79f679-l975q    Container image "nginx:1.25" already present on machine
+8m29s       Normal    SuccessfulCreate    replicaset/target-app-f6db4c6b6    Created pod: target-app-f6db4c6b6-hgb8t
+6m57s       Normal    Pulling             pod/target-app-f6db4c6b6-hgb8t     Pulling image "nginx:this-tag-is-fake-123"
+6m57s       Warning   Failed              pod/target-app-f6db4c6b6-hgb8t     Failed to pull image "nginx:this-tag-is-fake-123": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/nginx:this-tag-is-fake-123": failed to resolve reference "docker.io/library/nginx:this-tag-is-fake-123": docker.io/library/nginx:this-tag-is-fake-123: not found
+6m57s       Warning   Failed              pod/target-app-f6db4c6b6-hgb8t     Error: ErrImagePull
+6m52s       Normal    SuccessfulCreate    replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-xx69p
+6m52s       Normal    Killing             pod/target-app-6bdb79f679-7p9hz    Stopping container target-app
+6m51s       Normal    Pulled              pod/target-app-6bdb79f679-xx69p    Container image "nginx:1.25" already present on machine
+6m51s       Normal    Created             pod/target-app-6bdb79f679-xx69p    Created container: target-app
+6m51s       Normal    Started             pod/target-app-6bdb79f679-xx69p    Started container target-app
+6m44s       Warning   Failed              pod/target-app-f6db4c6b6-hgb8t     Error: ImagePullBackOff
+4m42s       Normal    SuccessfulCreate    replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-qb7v5
+4m42s       Normal    Killing             pod/target-app-6bdb79f679-l975q    Stopping container target-app
+4m41s       Normal    Started             pod/target-app-6bdb79f679-qb7v5    Started container target-app
+4m41s       Normal    Created             pod/target-app-6bdb79f679-qb7v5    Created container: target-app
+4m41s       Normal    Pulled              pod/target-app-6bdb79f679-qb7v5    Container image "nginx:1.25" already present on machine
+3m20s       Normal    BackOff             pod/target-app-f6db4c6b6-hgb8t     Back-off pulling image "nginx:this-tag-is-fake-123"
+3s          Normal    Killing             pod/target-app-6bdb79f679-qb7v5    Stopping container target-app
+3s          Normal    SuccessfulCreate    replicaset/target-app-6bdb79f679   Created pod: target-app-6bdb79f679-l467r
+2s          Normal    Started             pod/target-app-6bdb79f679-l467r    Started container target-app
+2s          Normal    Created             pod/target-app-6bdb79f679-l467r    Created container: target-app
+2s          Normal    Pulled              pod/target-app-6bdb79f679-l467r    Container image "nginx:1.25" already present on machine

@@ -3,6 +3,7 @@
 INCIDENT ?= INC-001
 SCENARIO ?= pod_kill
 MODEL    ?= nvidia-glm47
+CATEGORY ?= PodCrashLooping
 
 help:
 	@echo "============================================"
@@ -16,7 +17,7 @@ help:
 	@echo "                memory_hog | network_partition | adversarial_logs"
 	@echo "  make capture INCIDENT=INC-001             - Capture incident evidence"
 	@echo "  make eval INCIDENT=INC-001 MODEL=<model> - Run LLM evaluation"
-	@echo "     Models: nvidia-glm47 | nvidia-llama | nvidia-mistral | gpt-4-turbo"
+	@echo "     Models: nvidia-glm47 | nvidia-llama | nvidia-mistral | nvidia-gptoss20b | gpt-4-turbo"
 	@echo "             or any NVIDIA NIM model slug"
 	@echo "  make summary                              - Print benchmark results table"
 	@echo "  make leaderboard                          - Generate data/leaderboard.json"
@@ -58,13 +59,13 @@ chaos:
 	esac
 
 capture:
-	@echo "Capturing incident: $(INCIDENT) | scenario: $(SCENARIO)"
-	@bash capture_incident.sh $(INCIDENT) $(SCENARIO) PodCrashLooping
+	@echo "Capturing incident: $(INCIDENT) | scenario: $(SCENARIO) | category: $(CATEGORY)"
+	@bash capture_incident.sh $(INCIDENT) $(SCENARIO) $(CATEGORY)
 
 eval:
 	@echo "Running LLM evaluation for $(INCIDENT) using $(MODEL)..."
 	@export PYTHONPATH=$$(pwd) && \
-	  source venv/bin/activate && \
+	  . venv/bin/activate && \
 	  python3 -m ai.llm_engine --incident data/raw_logs/$(INCIDENT) --model $(MODEL)
 	@echo "--- Tail of incidents.csv ---"
 	@tail -1 data/incidents.csv
@@ -77,17 +78,29 @@ run:
 
 summary:
 	@echo "Generating results summary..."
-	@export PYTHONPATH=$$(pwd) && source venv/bin/activate && python3 eval/results_summary.py
+	@export PYTHONPATH=$$(pwd) && . venv/bin/activate && python3 eval/results_summary.py
 
 leaderboard:
 	@echo "Generating leaderboard..."
-	@export PYTHONPATH=$$(pwd) && source venv/bin/activate && python3 eval/leaderboard.py
+	@export PYTHONPATH=$$(pwd) && . venv/bin/activate && python3 eval/leaderboard.py
 
 ablation:
 	@echo "Running Phase 2 Ablation (telemetry blackout) for $(INCIDENT) using $(MODEL)..."
-	@export PYTHONPATH=$$(pwd) && source venv/bin/activate && \
+	@export PYTHONPATH=$$(pwd) && . venv/bin/activate && \
 	  python3 eval/ablation.py --incident $(INCIDENT) --model $(MODEL)
 
 rlhf_test:
 	@echo "Running Phase 2 RLHF Overconfidence test..."
-	@export PYTHONPATH=$$(pwd) && source venv/bin/activate && python3 eval/rlhf_test.py
+	@export PYTHONPATH=$$(pwd) && . venv/bin/activate && python3 eval/rlhf_test.py
+
+bayesian_violation:
+	@echo "Running Bayesian Violation experiment..."
+	@export PYTHONPATH=$$(pwd) && . venv/bin/activate && python3 eval/bayesian_violation.py $(ARGS)
+
+novel_incidents:
+	@echo "Running Novel Incidents experiment..."
+	@export PYTHONPATH=$$(pwd) && . venv/bin/activate && python3 eval/novel_incidents.py $(ARGS)
+
+evidence_eval:
+	@echo "Running Evidence Invariance evaluation..."
+	@export PYTHONPATH=$$(pwd) && . venv/bin/activate && python3 eval/evidence_eval.py $(ARGS)

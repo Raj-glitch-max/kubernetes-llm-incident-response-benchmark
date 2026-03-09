@@ -42,7 +42,7 @@ from eval.evaluate import (
     classify_regime, get_true_severity
 )
 
-LOGS_DIR = Path("data/raw_logs")
+LOGS_DIR = Path("data/incidents")
 OUT_CSV  = Path("data/ablation_results.csv")
 
 ABLATION_FIELDS = [
@@ -56,7 +56,11 @@ CONDITIONS = {
     "B": "Structural only (describe + events, no pod_logs)",
     "C": "Logs only (pod_logs, no describe/events)",
     "D": "Metadata only (all telemetry blanked)",
+    "D-strict": "Metadata only, label fields stripped (chaos_type + ground_truth_category removed)",
 }
+
+# Fields that constitute a label leak when present in Condition D
+LABEL_LEAK_FIELDS = {"chaos_type", "ground_truth_category", "chaos_scenario", "root_cause_category"}
 
 
 def load_raw_incident(incident_id: str) -> dict:
@@ -80,37 +84,61 @@ def load_raw_incident(incident_id: str) -> dict:
     return data
 
 
-def build_incident_for_condition(raw: dict, condition: str) -> IncidentInput:
+def build_incident_for_condition(raw: dict, condition: str, strict: bool = False) -> IncidentInput:
     """
     Build an IncidentInput with telemetry blanked according to the condition.
+
+    strict=True: for Condition D (or D-strict), strips LABEL_LEAK_FIELDS from
+    chaos_metadata so the LLM cannot read the category label from metadata.
+    This enables the causal comparison between label-leaked vs label-sanitized D.
     """
     meta     = raw.get("metadata", {})
     pod_logs = raw.get("pod_logs", "")
     describe = raw.get("describe_output", "")
     events   = raw.get("events", "")
 
-    if condition == "A":   # Full
+    # Normalise condition key
+    cond_key = condition.upper().replace("-STRICT", "")
+
+    if cond_key == "A":   # Full
         pl, dsc, evt = pod_logs, describe, events
-    elif condition == "B": # Structural (no pod_logs)
+    elif cond_key == "B": # Structural (no pod_logs)
         pl, dsc, evt = "", describe, events
-    elif condition == "C": # Logs only
+    elif cond_key == "C": # Logs only
         pl, dsc, evt = pod_logs, "", ""
-    elif condition == "D": # Metadata only (all blanked)
+    elif cond_key == "D": # Metadata only (all telemetry blanked)
         pl, dsc, evt = "", "", ""
     else:
         raise ValueError(f"Unknown condition: {condition}")
+
+    # Strip label-leak fields when strict mode is active for Condition D
+    effective_meta = dict(meta)
+    if strict and cond_key == "D":
+        for field in LABEL_LEAK_FIELDS:
+            effective_meta.pop(field, None)
+        # Keep only safe identifier fields
+        print(f"     [strict] chaos_metadata fields after stripping: {list(effective_meta.keys())}")
+
+    # alert_name: in strict-D strip the ground_truth_category hint from alert_name too
+    alert = "UnknownAlert" if (strict and cond_key == "D") else meta.get("ground_truth_category", "UnknownAlert")
 
     return IncidentInput(
         pod_logs=pl,
         describe_output=dsc,
         events=evt,
-        alert_name=meta.get("ground_truth_category", "UnknownAlert"),
-        chaos_metadata=meta
+        alert_name=alert,
+        chaos_metadata=effective_meta
     )
 
 
-def run_ablation_for_incident(incident_id: str, model: str, dry_run: bool = False):
-    """Run all 4 conditions for a given incident + model pair."""
+def run_ablation_for_incident(incident_id: str, model: str, dry_run: bool = False,
+                               condition_filter: str = None, strict: bool = False):
+    """Run 4 conditions for a given incident + model pair.
+
+    strict=True: runs Condition D with label fields stripped (D-strict).
+    Results are labelled as 'D-strict' in the output so they can be
+    compared against regular 'D' rows in the CSV.
+    """
     raw    = load_raw_incident(incident_id)
     meta   = raw.get("metadata", {})
     chaos_type   = meta.get("chaos_type", "")
@@ -118,12 +146,24 @@ def run_ablation_for_incident(incident_id: str, model: str, dry_run: bool = Fals
     true_severity = get_true_severity(chaos_type)
 
     results = []
-    for cond, cond_desc in CONDITIONS.items():
+
+    # Determine which conditions to run
+    if condition_filter:
+        target_conditions = [condition_filter]
+    elif strict:
+        # In strict mode, only D-strict is relevant — the others are identical to normal run
+        target_conditions = ["D-strict"]
+    else:
+        target_conditions = [c for c in CONDITIONS.keys() if c != "D-strict"]
+
+    for cond in target_conditions:
+        cond_desc = CONDITIONS.get(cond, cond)
         print(f"\n  [{cond}] {cond_desc}")
-        incident = build_incident_for_condition(raw, cond)
+        # Pass strict=True when condition includes strict
+        is_strict = strict or cond == "D-strict"
+        incident = build_incident_for_condition(raw, cond, strict=is_strict)
 
         if dry_run:
-            # Dry run — simulate without actual API call
             result = LLMOutput(
                 root_cause_description=f"[DRY-RUN] Condition {cond}",
                 category_label="PodCrashLooping",
@@ -163,14 +203,15 @@ def run_ablation_for_incident(incident_id: str, model: str, dry_run: bool = Fals
     return results
 
 
-def write_results(rows: list):
-    exists = OUT_CSV.exists()
-    with open(OUT_CSV, "a", newline="") as f:
+def write_results(rows: list, strict: bool = False):
+    out_csv = Path("data/ablation_results_strict.csv") if strict else OUT_CSV
+    exists = out_csv.exists()
+    with open(out_csv, "a", newline="") as f:
         w = csv.DictWriter(f, fieldnames=ABLATION_FIELDS)
         if not exists:
             w.writeheader()
         w.writerows(rows)
-    print(f"\n✅ Appended {len(rows)} rows to {OUT_CSV}")
+    print(f"\n✅ Appended {len(rows)} rows to {out_csv}")
 
 
 def summarise_ablation(rows: list):
@@ -206,14 +247,19 @@ def main():
     parser = argparse.ArgumentParser(
         description="Keyword-controlled ablation experiment"
     )
-    parser.add_argument("--incident", default="INC-002",
+    parser.add_argument("--incident", default=None,
                         help="Incident ID (e.g. INC-002)")
-    parser.add_argument("--model", default="nvidia-mistral",
+    parser.add_argument("--condition", default=None,
+                        help="Condition (A, B, C, D, D-strict). If provided, only this one runs.")
+    parser.add_argument("--model", default=None,
                         help="Model alias or NVIDIA NIM slug")
     parser.add_argument("--all", action="store_true",
                         help="Run all incidents × models")
     parser.add_argument("--dry-run", action="store_true",
                         help="Skip API calls, simulate responses")
+    parser.add_argument("--strict", action="store_true",
+                        help="Strip label-leak fields (chaos_type, ground_truth_category) from "
+                             "chaos_metadata in Condition D. Results written to ablation_results_strict.csv.")
     args = parser.parse_args()
 
     os.environ.setdefault("PYTHONPATH", str(Path(__file__).parent.parent))
@@ -223,23 +269,32 @@ def main():
                      if d.is_dir() and d.name.startswith("INC-")]
         models    = ["nvidia-mistral", "nvidia-llama", "nvidia-glm47"]
     else:
-        incidents = [args.incident]
-        models    = [args.model]
+        incidents = [args.incident] if args.incident else ["INC-002"]
+        models    = [args.model] if args.model else ["nvidia-mistral"]
+
+    if args.strict:
+        print("\n⚠️  STRICT MODE: Condition D will have chaos_type + ground_truth_category stripped")
+        print("   Results → data/ablation_results_strict.csv\n")
 
     all_rows = []
     for model in models:
         for incident_id in sorted(incidents):
             print(f"\n{'='*56}")
-            print(f"  Ablation: {incident_id} × {model}")
+            print(f"  Ablation: {incident_id} × {model}{'  [STRICT]' if args.strict else ''}")
             print(f"{'='*56}")
             try:
-                rows = run_ablation_for_incident(incident_id, model, dry_run=args.dry_run)
+                rows = run_ablation_for_incident(
+                    incident_id, model,
+                    dry_run=args.dry_run,
+                    condition_filter=args.condition,
+                    strict=args.strict
+                )
                 all_rows.extend(rows)
             except Exception as e:
                 print(f"  ⚠️  Error: {e}")
 
     if all_rows:
-        write_results(all_rows)
+        write_results(all_rows, strict=args.strict)
         summarise_ablation(all_rows)
 
 

@@ -28,8 +28,8 @@ import subprocess
 from pathlib import Path
 from eval.evaluate import score_command_executability, score_log_faithfulness
 
-CSV_PATH = Path("data/incidents.csv")
-LOGS_ROOT = Path("data/raw_logs")
+CSV_PATH = Path("results/main_results.csv")
+LOGS_ROOT = Path("data/incidents")
 
 FIELDNAMES = [
     "incident_id", "model", "latency_sec", "rca_accuracy",

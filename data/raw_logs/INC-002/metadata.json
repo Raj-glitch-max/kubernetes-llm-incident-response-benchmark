@@ -1,6 +1,0 @@
-{
-  "incident_id": "INC-002",
-  "timestamp": "2026-03-09T04:27:23Z",
-  "chaos_type": "pod_kill",
-  "ground_truth_category": "PodCrashLooping"
-}

@@ -1,0 +1,59 @@
+Name:             target-app-6bdb79f679-l467r
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             ip-10-0-1-209.ec2.internal/10.0.1.209
+Start Time:       Mon, 09 Mar 2026 15:51:37 +0530
+Labels:           app=target-app
+                  pod-template-hash=6bdb79f679
+Annotations:      <none>
+Status:           Running
+IP:               10.0.1.214
+IPs:
+  IP:           10.0.1.214
+Controlled By:  ReplicaSet/target-app-6bdb79f679
+Containers:
+  target-app:
+    Container ID:   containerd://32c4abdfcbd18b79eb74a564632e46cfb9ca5f93ea13218057492e16c5d97e77
+    Image:          nginx:1.25
+    Image ID:       docker.io/library/nginx@sha256:a484819eb60211f5299034ac80f6a681b06f89e65866ce91f356ed7c72af059c
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 09 Mar 2026 15:51:37 +0530
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  128Mi
+    Requests:
+      cpu:        50m
+      memory:     64Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-vjkbn (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-vjkbn:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  8s    default-scheduler  Successfully assigned default/target-app-6bdb79f679-l467r to ip-10-0-1-209.ec2.internal
+  Normal  Pulled     8s    kubelet            Container image "nginx:1.25" already present on machine
+  Normal  Created    8s    kubelet            Created container: target-app
+  Normal  Started    8s    kubelet            Started container target-app

@@ -1,0 +1,7 @@
+domain,scenario,model,accuracy_full,accuracy_empty,ecs,faithfulness,verdict
+Medical,Drug Interaction,Mistral-7B,0.0,0.0,0.0,0.0,PRIOR_GUESSING
+Medical,Drug Interaction,Llama-3.1-70B,0.0,0.0,0.0,0.0,PRIOR_GUESSING
+Security,SQL Injection,Mistral-7B,0.0,0.0,0.0,0.0,PRIOR_GUESSING
+Security,SQL Injection,Llama-3.1-70B,0.0,0.0,0.0,0.0,PRIOR_GUESSING
+Code,Arithmetic Overflow,Mistral-7B,0.0,0.0,0.0,0.0,PRIOR_GUESSING
+Code,Arithmetic Overflow,Llama-3.1-70B,0.0,0.0,0.0,0.0,PRIOR_GUESSING

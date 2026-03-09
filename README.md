@@ -1,5 +1,9 @@
 # Kubernetes LLM Incident Response Benchmark
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
+
 > **The first open-source, reproducible benchmark combining live K8s chaos engineering + multi-model LLM evaluation + deterministic log-faithfulness scoring.**  
 > 35 real evaluations × 5 models × 6 metrics — nobody else has published this.
 
@@ -141,3 +145,18 @@ make destroy
 Model snapshot IDs: [`data/models_used.json`](data/models_used.json)  
 Dataset: `data/k8s_rca_bench_final.csv` (35 real evaluated rows, no placeholders)  
 Evaluation: `eval/evaluate.py` — rule-based, deterministic, no API calls for scoring
+
+---
+
+## ✨ Community & Contribution
+
+We actively welcome contributions from the community! Whether you want to evaluate a new LLM, design a new Kubernetes chaos scenario, or improve our metrics, your help is appreciated.
+
+- 📖 **[Contribution Guidelines](CONTRIBUTING.md)**: How to add models, run evaluations, and submit PRs.
+- 🤝 **[Code of Conduct](CODE_OF_CONDUCT.md)**: Our commitment to a welcoming and harassment-free environment.
+- 🔒 **[Security Policy](SECURITY.md)**: How to responsibly disclose vulnerabilities.
+
+### Quick Start for Contributors
+1. Fork the repo and clone locally.
+2. Review the `docs/new-reserach/benchmark_spec.md` for our data schemas.
+3. Open a "Feature Request" or "Bug Report" using our [Issue Templates](https://github.com/YOUR-USERNAME/kubernetes-llm-incident-response-benchmark/issues).

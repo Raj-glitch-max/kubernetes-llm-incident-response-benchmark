@@ -1,0 +1,26 @@
+name: Feature Request
+description: Suggest an enhancement or new capability
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting an improvement! We are highly open to expanding the benchmark (new models, new chaos types, new metrics).
+  - type: textarea
+    id: goal
+    attributes:
+      label: Describe the feature
+      description: What are you trying to accomplish?
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Describe the problem
+      description: Does this solve an existing problem in the benchmark? (e.g. missing log sources)
+  - type: textarea
+    id: implementation
+    attributes:
+      label: Implementation ideas
+      description: If you have a specific technical approach in mind, let us know!

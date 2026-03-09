@@ -6,8 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "k8s-llm-rca-bench"
 version = "0.1.0"
 authors = [
-  { name="Raj", email="raj@example.com" },
-  { name="Soham", email="soham@example.com" },
+  { name="Raj", email="raj@example.com" }
 ]
 description = "A Kubernetes LLM Root Cause Analysis Benchmark"
 readme = "README.md"
